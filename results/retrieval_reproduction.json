@@ -1,0 +1,133 @@
+{
+  "C_aggregate": {
+    "Recall@10": {
+      "mean": 0.8154444444444445,
+      "n_seeds": 3,
+      "population_std": 0.003424674446093865,
+      "sample_std": 0.004194352464039292
+    },
+    "nDCG@10": {
+      "mean": 0.6784892679361313,
+      "n_seeds": 3,
+      "population_std": 0.0014141214435848763,
+      "sample_std": 0.0017319379855554476
+    }
+  },
+  "C_reference_aggregate": {
+    "Recall@10": {
+      "mean": 0.8154444444444445,
+      "n_seeds": 3,
+      "population_std": 0.003424674446093865,
+      "sample_std": 0.004194352464039292
+    },
+    "nDCG@10": {
+      "mean": 0.6784892679361313,
+      "n_seeds": 3,
+      "population_std": 0.0014141214435848763,
+      "sample_std": 0.0017319379855554476
+    }
+  },
+  "all_within_tolerance": true,
+  "environment": {
+    "faiss": "1.15.1",
+    "machine": "arm64",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.6",
+    "sentence_transformers": "6.1.0",
+    "torch": "2.14.1",
+    "transformers": "5.20.1"
+  },
+  "faiss_matches_exact_everywhere": true,
+  "models": {
+    "C-seed13": {
+      "Recall@10": 0.8198888888888889,
+      "abs_diff": {
+        "Recall@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "corpus_encoding_seconds": 12.480271165724844,
+      "device": "mps",
+      "faiss_top10_identical_to_exact_numpy": "300/300",
+      "nDCG@10": 0.67873377945951,
+      "queries": 300,
+      "ranking_vs_original_run": {
+        "identical_top10_order": 300,
+        "identical_top10_set": 300,
+        "queries": 300
+      },
+      "reference": {
+        "Recall@10": 0.8198888888888889,
+        "nDCG@10": 0.67873377945951
+      },
+      "within_tolerance": true
+    },
+    "C-seed2026": {
+      "Recall@10": 0.8115555555555556,
+      "abs_diff": {
+        "Recall@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "corpus_encoding_seconds": 12.870048916898668,
+      "device": "mps",
+      "faiss_top10_identical_to_exact_numpy": "300/300",
+      "nDCG@10": 0.6766480677972116,
+      "queries": 300,
+      "ranking_vs_original_run": {
+        "identical_top10_order": 300,
+        "identical_top10_set": 300,
+        "queries": 300
+      },
+      "reference": {
+        "Recall@10": 0.8115555555555556,
+        "nDCG@10": 0.6766480677972116
+      },
+      "within_tolerance": true
+    },
+    "C-seed42": {
+      "Recall@10": 0.8148888888888889,
+      "abs_diff": {
+        "Recall@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "corpus_encoding_seconds": 12.733493790961802,
+      "device": "mps",
+      "faiss_top10_identical_to_exact_numpy": "300/300",
+      "nDCG@10": 0.6800859565516719,
+      "queries": 300,
+      "ranking_vs_original_run": {
+        "identical_top10_order": 300,
+        "identical_top10_set": 300,
+        "queries": 300
+      },
+      "reference": {
+        "Recall@10": 0.8148888888888889,
+        "nDCG@10": 0.6800859565516719
+      },
+      "within_tolerance": true
+    },
+    "original": {
+      "Recall@10": 0.7833333333333333,
+      "abs_diff": {
+        "Recall@10": 0.0,
+        "nDCG@10": 0.0
+      },
+      "corpus_encoding_seconds": 12.289476292207837,
+      "device": "mps",
+      "faiss_top10_identical_to_exact_numpy": "300/300",
+      "nDCG@10": 0.6450816521455776,
+      "queries": 300,
+      "ranking_vs_original_run": {
+        "identical_top10_order": 300,
+        "identical_top10_set": 300,
+        "queries": 300
+      },
+      "reference": {
+        "Recall@10": 0.7833333333333333,
+        "nDCG@10": 0.6450816521455776
+      },
+      "within_tolerance": true
+    }
+  },
+  "scope": "BEIR SciFact official test, 300 claims, 339 qrels, corpus 5183 docs; FAISS IndexFlatIP on L2-normalized float32 embeddings; no training or tuning",
+  "tolerance_abs": 0.001
+}

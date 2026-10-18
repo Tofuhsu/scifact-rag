@@ -1,0 +1,15 @@
+# Observed versions on macOS arm64 / Python 3.11.6 (not a hash-locked lockfile).
+torch==2.14.1
+transformers==5.20.1
+sentence-transformers==6.1.0
+tokenizers==0.23.3
+safetensors==0.8.0
+numpy==2.4.6
+huggingface_hub==1.33.0
+pyarrow==26.0.0
+faiss-cpu==1.15.1
+fastapi==0.146.0
+pydantic==2.14.1
+uvicorn==0.54.0
+httpx==0.28.1
+pytest==9.1.1
