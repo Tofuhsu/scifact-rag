@@ -21,7 +21,9 @@ SHA256 = {
     "corpus/corpus-00000-of-00001.parquet": "243324b35f03d82bd6d98a5f575966876e86cad7ce16e5333a35b1b793dc4f45",
     "queries/queries-00000-of-00001.parquet": "1c37956c5dc8b810b60302323c24d1a9e79e26411ba8f5ad9d0888642e2a9034",
     "test.tsv": "0864bb985e0ca2367ba217977e72004d549054b2b06666ed9d4825ac7c21284c",
+    "train.tsv": "a53f2114831916c096b6c37d9e54da68cef4efdcdbd5ed46533601af972acf1d",
 }
+VALIDATION_SPLIT = Path(__file__).resolve().parents[1] / "data" / "validation_split.json"
 CORPUS_SIZE = 5183
 TEST_QUERIES = 300
 TEST_QREL_ROWS = 339
@@ -100,16 +102,34 @@ def read_qrels_tsv(path):
     return qrels
 
 
-def load_test():
-    """Return (query_ids, claims, qrels) for the 300-claim official test split."""
+def _load_claims(query_ids):
     import pyarrow.parquet as pq
 
+    path = _fetch(SCIFACT_REPO, SCIFACT_REVISION, "queries/queries-00000-of-00001.parquet")
+    rows = sorted(pq.read_table(path, columns=["_id", "text"], filters=[("_id", "in", query_ids)]).to_pylist(),
+                  key=lambda r: r["_id"])
+    require([r["_id"] for r in rows] == query_ids, "Query texts do not match the requested IDs")
+    return [query_text(r["text"]) for r in rows]
+
+
+def load_validation():
+    """Return (query_ids, claims, qrels) for the 160-claim validation split (development use only)."""
+    import json
+
+    split = json.loads(VALIDATION_SPLIT.read_text(encoding="utf-8"))
+    require(split["qrels_revision"] == QRELS_REVISION, "Validation split qrels revision differs")
+    query_ids = sorted(split["query_ids"])
+    train_qrels = read_qrels_tsv(_fetch(QRELS_REPO, QRELS_REVISION, "train.tsv"))
+    qrels = {qid: train_qrels[qid] for qid in query_ids}
+    require(len(query_ids) == split["counts"]["queries"], "Validation query count differs")
+    require(sum(map(len, qrels.values())) == split["counts"]["qrel_rows"], "Validation qrel row count differs")
+    return query_ids, _load_claims(query_ids), qrels
+
+
+def load_test():
+    """Return (query_ids, claims, qrels) for the 300-claim official test split."""
     qrels = read_qrels_tsv(_fetch(QRELS_REPO, QRELS_REVISION, "test.tsv"))
     query_ids = sorted(qrels)
     require(len(query_ids) == TEST_QUERIES, "Test query count differs")
     require(sum(map(len, qrels.values())) == TEST_QREL_ROWS, "Test qrel row count differs")
-    path = _fetch(SCIFACT_REPO, SCIFACT_REVISION, "queries/queries-00000-of-00001.parquet")
-    rows = sorted(pq.read_table(path, columns=["_id", "text"], filters=[("_id", "in", query_ids)]).to_pylist(),
-                  key=lambda r: r["_id"])
-    require([r["_id"] for r in rows] == query_ids, "Query texts do not match the test qrels")
-    return query_ids, [query_text(r["text"]) for r in rows], qrels
+    return query_ids, _load_claims(query_ids), qrels

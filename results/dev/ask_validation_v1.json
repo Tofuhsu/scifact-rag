@@ -1,0 +1,1775 @@
+{
+  "split": "validation (development only)",
+  "sample": 30,
+  "sample_seed": 0,
+  "k": 5,
+  "llm": "qwen3:14b",
+  "prompt_version": "v1",
+  "models": {
+    "original": {
+      "claims": 30,
+      "abstained": "9/30",
+      "claims_with_a_relevant_doc_in_top_k": "22/30",
+      "answers_with_invalid_citations": "0/21",
+      "uncited_answers": "0/21",
+      "cited_doc_in_qrels": "17/34",
+      "cited_doc_in_qrels_fraction": 0.5,
+      "out_of_domain_abstained": "5/5",
+      "generate_ms": {
+        "p50": 8603.729708120227,
+        "p95": 14641.39987481758,
+        "mean": 8950.210190284997,
+        "samples": 30,
+        "note": "warm model, sequential single requests, one run; not the week-3 benchmark"
+      },
+      "rows": [
+        {
+          "query_id": "1120",
+          "claim": "Sympathetic nerve activity is reduced throughout normal pregnancy.",
+          "answer": "This claim is not supported by the abstracts. In fact, the abstracts indicate that sympathetic nerve activity is increased during normal pregnancy. For example, muscle sympathetic nerve activity (MSNA) was significantly greater during early pregnancy compared to the mid-luteal phase [26710772]. Similarly, normotensive pregnant women had elevated baseline sympathetic burst incidence and total sympathetic activity compared to nonpregnant controls [18997216]. These findings suggest that sympathetic nerve activity is not reduced but rather increased throughout normal pregnancy.",
+          "abstained": false,
+          "citations": [
+            "26710772",
+            "18997216"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "26710772",
+            "18997216",
+            "5323845",
+            "13907928",
+            "8596837"
+          ],
+          "relevant": [
+            "13907928",
+            "18997216",
+            "5323845"
+          ],
+          "timings": {
+            "embed_ms": 129.13179164752364,
+            "search_ms": 1.2822081334888935,
+            "generate_ms": 4754.642250016332
+          },
+          "prompt_tokens": 2759,
+          "completion_tokens": 113
+        },
+        {
+          "query_id": "1159",
+          "claim": "The DESMOND program demonstrates no significant impact on weight loss.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "7552215",
+            "32322418",
+            "6841927",
+            "11360768",
+            "41310252"
+          ],
+          "relevant": [
+            "12584053"
+          ],
+          "timings": {
+            "embed_ms": 45.52887473255396,
+            "search_ms": 0.679417047649622,
+            "generate_ms": 9175.553082954139
+          },
+          "prompt_tokens": 2262,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1224",
+          "claim": "The latent infection of myeloid cells with human cytomegalovirus induces a number of changes in gene expression.",
+          "answer": "Yes, the latent infection of myeloid cells with human cytomegalovirus induces changes in gene expression, including the expression of viral genes such as UL111A, which encodes a protein with homology to interleukin-10 [26133404]. Additionally, the viral interleukin-10 modulates the differentiation of latently infected myeloid progenitors [26873988]. The UL144 gene is also expressed during latency in certain isolates of HCMV [30933307]. These findings highlight the complex changes in gene expression during HCMV latency.",
+          "abstained": false,
+          "citations": [
+            "26133404",
+            "26873988",
+            "30933307"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "21932050",
+            "26873988",
+            "26133404",
+            "30933307",
+            "10450300"
+          ],
+          "relevant": [
+            "21932050",
+            "34016987"
+          ],
+          "timings": {
+            "embed_ms": 47.05237504094839,
+            "search_ms": 0.19512511789798737,
+            "generate_ms": 12512.171667069197
+          },
+          "prompt_tokens": 1773,
+          "completion_tokens": 140
+        },
+        {
+          "query_id": "1246",
+          "claim": "The one-child policy has created a hospitable environment for female infants.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "108886332",
+            "42291761",
+            "23531592",
+            "17877537",
+            "16204011"
+          ],
+          "relevant": [
+            "7662395"
+          ],
+          "timings": {
+            "embed_ms": 46.104458160698414,
+            "search_ms": 0.36691688001155853,
+            "generate_ms": 6014.427708927542
+          },
+          "prompt_tokens": 1534,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1315",
+          "claim": "Transcription rates in S. cerevisiae range between 7 and 12 kb/min.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "365896",
+            "16237005",
+            "2817000",
+            "36606083",
+            "41811327"
+          ],
+          "relevant": [
+            "13072112",
+            "16237005"
+          ],
+          "timings": {
+            "embed_ms": 50.66770827397704,
+            "search_ms": 0.20454172044992447,
+            "generate_ms": 5334.467792417854
+          },
+          "prompt_tokens": 1402,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1330",
+          "claim": "Tumor development occurs in conjunction with suppression of pro-inflammatory cytokines.",
+          "answer": "The provided abstracts do not directly support the claim that tumor development occurs in conjunction with suppression of pro-inflammatory cytokines. Instead, they describe the role of pro-inflammatory cytokines, such as IL-17, in promoting tumor development and the involvement of inflammatory processes in tumor progression [25726838, 4429118, 219475, 7975937, 24282306]. The abstracts do not mention suppression of pro-inflammatory cytokines in the context of tumor development. Therefore, the claim is not supported by the information provided.",
+          "abstained": false,
+          "citations": [
+            "25726838",
+            "4429118",
+            "219475",
+            "7975937",
+            "24282306"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "25726838",
+            "4429118",
+            "219475",
+            "7975937",
+            "24282306"
+          ],
+          "relevant": [
+            "14075252"
+          ],
+          "timings": {
+            "embed_ms": 39.08425010740757,
+            "search_ms": 0.21974975243210793,
+            "generate_ms": 10813.936416991055
+          },
+          "prompt_tokens": 1454,
+          "completion_tokens": 134
+        },
+        {
+          "query_id": "172",
+          "claim": "Basophils promote disease development in patients with systemic lupus erythematosus (SLE).",
+          "answer": "Basophils can promote disease development in patients with systemic lupus erythematosus (SLE) by activating T helper type 2 (T(H)2) cells and enhancing the production of self-reactive antibodies that cause lupus-like nephritis, as observed in Lyn(-/-) mice [12670680]. Individuals with SLE also have elevated serum IgE, self-reactive IgEs, and activated basophils associated with increased disease activity and active lupus nephritis [12670680]. Basophils were also present in the lymph nodes and spleen of subjects with SLE [12670680].",
+          "abstained": false,
+          "citations": [
+            "12670680"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "12670680",
+            "28149602",
+            "28015516",
+            "14853989",
+            "5448119"
+          ],
+          "relevant": [
+            "12670680"
+          ],
+          "timings": {
+            "embed_ms": 61.26437522470951,
+            "search_ms": 0.18979189917445183,
+            "generate_ms": 12586.454459000379
+          },
+          "prompt_tokens": 1778,
+          "completion_tokens": 142
+        },
+        {
+          "query_id": "196",
+          "claim": "C2 works synergistically with A-769662 to activate dephosphorylated AMPK.",
+          "answer": "C2 acts synergistically with A769662 to activate AMPK α1-containing complexes [19313533]. The abstract does not mention whether AMPK is dephosphorylated in this process.",
+          "abstained": false,
+          "citations": [
+            "19313533"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "19313533",
+            "23974474",
+            "26025820",
+            "30379039",
+            "19149247"
+          ],
+          "relevant": [
+            "19313533"
+          ],
+          "timings": {
+            "embed_ms": 101.07245808467269,
+            "search_ms": 0.21954206749796867,
+            "generate_ms": 7913.962333928794
+          },
+          "prompt_tokens": 1557,
+          "completion_tokens": 50
+        },
+        {
+          "query_id": "229",
+          "claim": "Carriers of HNF4A mutations are at reduced risk for diabetes.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "56893404",
+            "5567005",
+            "26059876",
+            "13450938",
+            "23389795"
+          ],
+          "relevant": [
+            "56893404"
+          ],
+          "timings": {
+            "embed_ms": 33.719665836542845,
+            "search_ms": 0.21725008264183998,
+            "generate_ms": 5444.411207921803
+          },
+          "prompt_tokens": 1419,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "243",
+          "claim": "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, transcription and nuclear localization.",
+          "answer": "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, as shown by the consolidation of smaller differentially replicating domains into larger coordinately replicated units [8148122]. Transcription changes are also coordinated with replication-timing changes, particularly for weak promoters [8148122]. Additionally, replication-timing changes are accompanied by rearrangements in subnuclear position [8148122]. The provided abstracts do not explicitly mention nuclear localization changes beyond subnuclear position rearrangements.",
+          "abstained": false,
+          "citations": [
+            "8148122"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "8148122",
+            "14225271",
+            "22428640",
+            "8759633",
+            "7492420"
+          ],
+          "relevant": [
+            "8148122"
+          ],
+          "timings": {
+            "embed_ms": 52.64345882460475,
+            "search_ms": 0.25949999690055847,
+            "generate_ms": 9944.16670780629
+          },
+          "prompt_tokens": 1422,
+          "completion_tokens": 115
+        },
+        {
+          "query_id": "265",
+          "claim": "Clathrin stabilizes the spindle fiber apparatus during mitosis.",
+          "answer": "Clathrin stabilizes fibres of the mitotic spindle to aid congression of chromosomes, as shown by the depletion of clathrin heavy chain leading to destabilized kinetochore fibres and defective congression [2033917].",
+          "abstained": false,
+          "citations": [
+            "2033917"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "2033917",
+            "42035464",
+            "38127792",
+            "17805221",
+            "11674596"
+          ],
+          "relevant": [
+            "2033917"
+          ],
+          "timings": {
+            "embed_ms": 50.37716683000326,
+            "search_ms": 0.20866701379418373,
+            "generate_ms": 8173.64575015381
+          },
+          "prompt_tokens": 1566,
+          "completion_tokens": 54
+        },
+        {
+          "query_id": "323",
+          "claim": "Deleting Raptor increases G-CSF levels.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "22174015",
+            "6962472",
+            "10790846",
+            "2014909",
+            "4658268"
+          ],
+          "relevant": [
+            "2014909"
+          ],
+          "timings": {
+            "embed_ms": 58.97029209882021,
+            "search_ms": 0.18729083240032196,
+            "generate_ms": 6742.365249898285
+          },
+          "prompt_tokens": 1702,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "341",
+          "claim": "Diabetes remission occurs more in people treated with conventional therapy than in people treated with laparoscopic adjustable gastric banding surgery.",
+          "answer": "Diabetes remission occurs more in people treated with laparoscopic adjustable gastric banding surgery than in people treated with conventional therapy. In a randomized controlled trial, 73% of participants in the surgical group achieved remission compared to 13% in the conventional-therapy group [7098463].",
+          "abstained": false,
+          "citations": [
+            "7098463"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "7098463",
+            "5824985",
+            "750781",
+            "33127778",
+            "12584053"
+          ],
+          "relevant": [
+            "7098463"
+          ],
+          "timings": {
+            "embed_ms": 41.15295875817537,
+            "search_ms": 0.21891621872782707,
+            "generate_ms": 12666.672499850392
+          },
+          "prompt_tokens": 2442,
+          "completion_tokens": 67
+        },
+        {
+          "query_id": "349",
+          "claim": "Diminished ovarian reserve is a reliable indicator of infertility in a non-infertile population.",
+          "answer": "The study found that women with low AMH values did not have a significantly different predicted probability of conceiving compared with women with normal values [13497630]. This suggests that diminished ovarian reserve, as indicated by low AMH, may not be a reliable indicator of infertility in a non-infertile population. The findings indicate that other factors may play a more significant role in fertility outcomes.",
+          "abstained": false,
+          "citations": [
+            "13497630"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "13497630",
+            "22534357",
+            "427865",
+            "5145974",
+            "11109043"
+          ],
+          "relevant": [
+            "13497630"
+          ],
+          "timings": {
+            "embed_ms": 57.18666734173894,
+            "search_ms": 0.20070793107151985,
+            "generate_ms": 12727.306833025068
+          },
+          "prompt_tokens": 2294,
+          "completion_tokens": 84
+        },
+        {
+          "query_id": "39",
+          "claim": "A diminished ovarian reserve does not solely indicate infertility in an a priori non-infertile population.",
+          "answer": "The study indicates that women with low AMH values did not have a significantly different predicted probability of conceiving compared with women with normal values [13497630]. This suggests that diminished ovarian reserve may not be a definitive indicator of infertility in a non-infertile population. Similarly, women with high serum FSH values also did not show a significantly different predicted probability of conceiving compared with women with normal values [13497630]. These findings support the claim that diminished ovarian reserve does not solely indicate infertility.",
+          "abstained": false,
+          "citations": [
+            "13497630"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "13497630",
+            "22534357",
+            "427865",
+            "34198460",
+            "8642784"
+          ],
+          "relevant": [
+            "13497630"
+          ],
+          "timings": {
+            "embed_ms": 47.85904102027416,
+            "search_ms": 0.21141720935702324,
+            "generate_ms": 7866.953916847706
+          },
+          "prompt_tokens": 1989,
+          "completion_tokens": 112
+        },
+        {
+          "query_id": "44",
+          "claim": "A mutation in HNF4A leads to an increased risk of developing diabetes by the age of 14 years.",
+          "answer": "The abstract [56893404] discusses the role of HNF4A mutations in macrosomia and hyperinsulinaemic hypoglycaemia but does not mention an increased risk of developing diabetes by the age of 14 years. Therefore, the claim is not supported by the provided abstracts.",
+          "abstained": false,
+          "citations": [
+            "56893404"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "56893404",
+            "5567005",
+            "32181055",
+            "76463821",
+            "25571386"
+          ],
+          "relevant": [
+            "56893404"
+          ],
+          "timings": {
+            "embed_ms": 58.557874988764524,
+            "search_ms": 0.18416624516248703,
+            "generate_ms": 8501.502874772996
+          },
+          "prompt_tokens": 1799,
+          "completion_tokens": 69
+        },
+        {
+          "query_id": "441",
+          "claim": "G-CSF increases the expansion and infiltration of MDSCs into tumors.",
+          "answer": "G-CSF increases the expansion and infiltration of MDSCs into tumors [2014909].",
+          "abstained": false,
+          "citations": [
+            "2014909"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "2014909",
+            "3559136",
+            "11291348",
+            "7795952",
+            "952111"
+          ],
+          "relevant": [
+            "2014909"
+          ],
+          "timings": {
+            "embed_ms": 47.4210842512548,
+            "search_ms": 0.218832865357399,
+            "generate_ms": 6622.039917390794
+          },
+          "prompt_tokens": 1440,
+          "completion_tokens": 24
+        },
+        {
+          "query_id": "479",
+          "claim": "Gpr124 increases BBB breakdown in mouse models of ischemic stroke.",
+          "answer": "Yes, Gpr124 increases BBB breakdown in mouse models of ischemic stroke, as Gpr124 conditional knockout (CKO) in the endothelia of adult mice resulted in BBB disruption and microvascular hemorrhage in mouse models of ischemic stroke [6325527].",
+          "abstained": false,
+          "citations": [
+            "6325527"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "6325527",
+            "3761017",
+            "32328114",
+            "33884866",
+            "2352142"
+          ],
+          "relevant": [
+            "6325527"
+          ],
+          "timings": {
+            "embed_ms": 33.37599989026785,
+            "search_ms": 0.21729199215769768,
+            "generate_ms": 9129.112749826163
+          },
+          "prompt_tokens": 1936,
+          "completion_tokens": 63
+        },
+        {
+          "query_id": "52",
+          "claim": "ALDH1 expression is associated with poorer prognosis for breast cancer primary tumors.",
+          "answer": "Yes, ALDH1 expression is associated with poorer prognosis for breast cancer primary tumors. In a series of 577 breast carcinomas, expression of ALDH1 detected by immunostaining correlated with poor prognosis [45638119].",
+          "abstained": false,
+          "citations": [
+            "45638119"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "45638119",
+            "32001951",
+            "17648235",
+            "29366489",
+            "7821634"
+          ],
+          "relevant": [
+            "45638119"
+          ],
+          "timings": {
+            "embed_ms": 43.449667282402515,
+            "search_ms": 0.20624976605176926,
+            "generate_ms": 10025.144709274173
+          },
+          "prompt_tokens": 1901,
+          "completion_tokens": 54
+        },
+        {
+          "query_id": "545",
+          "claim": "IFIT1 speeds viral replication by allowing for the proliferation of mis-capped viral RNAs.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "1970884",
+            "44366096",
+            "10559501",
+            "3493623",
+            "26731863"
+          ],
+          "relevant": [
+            "24221369"
+          ],
+          "timings": {
+            "embed_ms": 65.17779175192118,
+            "search_ms": 0.23579131811857224,
+            "generate_ms": 7034.893041010946
+          },
+          "prompt_tokens": 1690,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "559",
+          "claim": "Immune responses in immune cells are geographically segregated.",
+          "answer": "Immune responses in immune cells can be geographically segregated, as evidenced by the formation of localized cytokine niches with sharp boundaries, which contribute to cell-to-cell variability [4928282]. Additionally, tissue-resident memory T cells are specialized for local immune defense, indicating a degree of geographic segregation in immune responses [3155731]. However, the extent and mechanisms of segregation in other immune cell types and tissues are not fully addressed in the provided abstracts.",
+          "abstained": false,
+          "citations": [
+            "4928282",
+            "3155731"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "4928282",
+            "9977329",
+            "991137",
+            "3155731",
+            "22874817"
+          ],
+          "relevant": [
+            "3475317"
+          ],
+          "timings": {
+            "embed_ms": 37.145332898944616,
+            "search_ms": 0.16175024211406708,
+            "generate_ms": 9222.121709026396
+          },
+          "prompt_tokens": 1339,
+          "completion_tokens": 102
+        },
+        {
+          "query_id": "648",
+          "claim": "Integrated care is successful at tackling multiple comorbidities.",
+          "answer": "Integrated care shows promise in tackling multiple comorbidities, as evidenced by a randomized trial where multi-condition collaborative care led to significant improvements in disability and quality of life for patients with chronic physical diseases and depression [15041758]. The study demonstrated that integrated care can effectively address multiple conditions simultaneously, improving outcomes such as social role disability and global quality of life. However, the success of integrated care may depend on specific implementation strategies, such as task shifting, psychotherapeutic interventions, and community engagement, which are highlighted as important factors in preventing a narrow biomedical approach [24318630]. The effectiveness of integrated care in other contexts or for different combinations of comorbidities is not addressed in the provided abstracts.",
+          "abstained": false,
+          "citations": [
+            "15041758",
+            "24318630"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "19945096",
+            "24318630",
+            "15041758",
+            "52827184",
+            "10893238"
+          ],
+          "relevant": [
+            "15041758"
+          ],
+          "timings": {
+            "embed_ms": 56.359208188951015,
+            "search_ms": 0.20575011149048805,
+            "generate_ms": 16456.451832782477
+          },
+          "prompt_tokens": 2305,
+          "completion_tokens": 154
+        },
+        {
+          "query_id": "652",
+          "claim": "Interferon stimulated genes (ISGs) Irf1, Irg1, Ifi27, and Rsad2 inhibit West Nile virus replication in cortical neurons.",
+          "answer": "The abstracts indicate that ISGs such as Ifi27, Irg1, and Rsad2 mediate antiviral effects against neurotropic viruses, including West Nile virus, in granule cell neurons of the cerebellum [9433958]. However, there is no direct evidence provided that these ISGs inhibit West Nile virus replication specifically in cortical neurons. The study does not mention Irf1 in relation to West Nile virus replication in cortical neurons.",
+          "abstained": false,
+          "citations": [
+            "9433958"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "10559501",
+            "9433958",
+            "26731863",
+            "3493623",
+            "34378726"
+          ],
+          "relevant": [
+            "9433958"
+          ],
+          "timings": {
+            "embed_ms": 58.014833834022284,
+            "search_ms": 0.20291609689593315,
+            "generate_ms": 8603.729708120227
+          },
+          "prompt_tokens": 1462,
+          "completion_tokens": 100
+        },
+        {
+          "query_id": "685",
+          "claim": "Lamins are associated with nuclear membrane structure maintenance.",
+          "answer": "Lamins are associated with nuclear membrane structure maintenance, as evidenced by the role of lamin A in the nuclear structural defects observed in Hutchinson-Gilford progeria syndrome [34747208]. Additionally, lamin B1 interacts with the autophagy protein LC3/Atg8, which is involved in maintaining nuclear lamina components [4452659]. The loss of lamin B1 leads to changes in nuclear structure, including decondensation of chromosome territories and increased nuclear blebs [25036988]. These findings support the involvement of lamins in the maintenance of nuclear membrane structure.",
+          "abstained": false,
+          "citations": [
+            "34747208",
+            "4452659",
+            "25036988"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "34747208",
+            "22544171",
+            "4452659",
+            "25036988",
+            "2947540"
+          ],
+          "relevant": [
+            "4452659"
+          ],
+          "timings": {
+            "embed_ms": 46.42520798370242,
+            "search_ms": 0.20837504416704178,
+            "generate_ms": 11308.827583212405
+          },
+          "prompt_tokens": 1407,
+          "completion_tokens": 132
+        },
+        {
+          "query_id": "71",
+          "claim": "Activation of the Rac1 homolog CED-10 kills viable cells in SRGP-1 mutant Caenorhabditis elegans.",
+          "answer": "The abstract indicates that SRGP-1 functions as a GTPase activating protein (GAP) for CED-10 (Rac1) and that loss of srgp-1 function promotes the clearance of dead and injured cells, including those brought to the verge of death through various insults [1127562]. However, it does not explicitly state that activation of the Rac1 homolog CED-10 kills viable cells in SRGP-1 mutant C. elegans.",
+          "abstained": false,
+          "citations": [
+            "1127562"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "1127562",
+            "1797622",
+            "5002665",
+            "14332945",
+            "469066"
+          ],
+          "relevant": [
+            "1127562"
+          ],
+          "timings": {
+            "embed_ms": 60.38345908746123,
+            "search_ms": 0.19924994558095932,
+            "generate_ms": 11056.644957978278
+          },
+          "prompt_tokens": 1576,
+          "completion_tokens": 105
+        },
+        {
+          "query_id": "73",
+          "claim": "Activator-inhibitor pairs are provided ventrally by Xrl-sizzled.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "6076903",
+            "19485649",
+            "14492964",
+            "40383969",
+            "8997410"
+          ],
+          "relevant": [
+            "6076903"
+          ],
+          "timings": {
+            "embed_ms": 40.4208330437541,
+            "search_ms": 0.640207901597023,
+            "generate_ms": 7164.116708096117
+          },
+          "prompt_tokens": 1612,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "774",
+          "claim": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "11569583",
+            "27635177",
+            "31293581",
+            "43014661",
+            "12552297"
+          ],
+          "relevant": [
+            "32275758"
+          ],
+          "timings": {
+            "embed_ms": 47.35591588541865,
+            "search_ms": 0.43233390897512436,
+            "generate_ms": 6853.717582765967
+          },
+          "prompt_tokens": 1635,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "777",
+          "claim": "Mice defective for deoxyribonucleic acid (DNA) polymerase m (polm) reveal increased sensitivity to ionizing radiation (IR).",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "11569583",
+            "27635177",
+            "31293581",
+            "43014661",
+            "12552297"
+          ],
+          "relevant": [
+            "32275758"
+          ],
+          "timings": {
+            "embed_ms": 49.23804197460413,
+            "search_ms": 0.20366627722978592,
+            "generate_ms": 271.356999874115
+          },
+          "prompt_tokens": 1633,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "894",
+          "claim": "Osteoparthritis (OA) is characterized by degeneration of articular cartilage, joint edge, and subchondral bone hyperplasia.",
+          "answer": "The provided abstracts do not mention subchondral bone hyperplasia as a characteristic of osteoarthritis (OA). They do describe degenerative changes in articular cartilage, such as the production of matrix metalloproteinases and proinflammatory cytokines in OA cartilage compared with normal cartilage [22505710]. Additionally, they mention changes in the infrapatellar fat pad and the role of osteoclasts in bone marrow, but not subchondral bone hyperplasia [37562370, 12130067]. NOT_FOUND.",
+          "abstained": false,
+          "citations": [
+            "22505710",
+            "37562370",
+            "12130067"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "22505710",
+            "58050905",
+            "37562370",
+            "12130067",
+            "45651303"
+          ],
+          "relevant": [
+            "14724693"
+          ],
+          "timings": {
+            "embed_ms": 13.276958838105202,
+            "search_ms": 0.3037499263882637,
+            "generate_ms": 14641.39987481758
+          },
+          "prompt_tokens": 2154,
+          "completion_tokens": 131
+        },
+        {
+          "query_id": "908",
+          "claim": "PGE 2 suppresss intestinal tumor growth by altering the expression of tumor suppressing and DNA repair genes.",
+          "answer": "The claim is not accurate. Prostaglandin E2 (PGE2) promotes intestinal tumor growth by silencing tumor-suppressor and DNA-repair genes through DNA methylation [6923961].",
+          "abstained": false,
+          "citations": [
+            "6923961"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "6923961",
+            "21181273",
+            "57783564",
+            "11915280",
+            "4422868"
+          ],
+          "relevant": [
+            "6923961"
+          ],
+          "timings": {
+            "embed_ms": 54.82341721653938,
+            "search_ms": 0.20745769143104553,
+            "generate_ms": 8944.10758279264
+          },
+          "prompt_tokens": 1606,
+          "completion_tokens": 46
+        }
+      ],
+      "out_of_domain": [
+        {
+          "question": "What is the capital of France?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "Who won the 2018 FIFA World Cup?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "How do I reverse a linked list in Python?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "What is the boiling point of ethanol at sea level?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "Which planet has the most moons?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        }
+      ]
+    },
+    "C-seed42": {
+      "claims": 30,
+      "abstained": "10/30",
+      "claims_with_a_relevant_doc_in_top_k": "21/30",
+      "answers_with_invalid_citations": "0/20",
+      "uncited_answers": "0/20",
+      "cited_doc_in_qrels": "16/28",
+      "cited_doc_in_qrels_fraction": 0.5714285714285714,
+      "out_of_domain_abstained": "5/5",
+      "generate_ms": {
+        "p50": 10184.157917276025,
+        "p95": 16166.362041141838,
+        "mean": 9900.576270697638,
+        "samples": 30,
+        "note": "warm model, sequential single requests, one run; not the week-3 benchmark"
+      },
+      "rows": [
+        {
+          "query_id": "1120",
+          "claim": "Sympathetic nerve activity is reduced throughout normal pregnancy.",
+          "answer": "This claim is not supported by the abstracts. In fact, the abstracts indicate that sympathetic nerve activity is increased during normal pregnancy. For example, muscle sympathetic nerve activity (MSNA) was significantly greater during early pregnancy compared to the mid-luteal phase [26710772]. Similarly, normotensive pregnant women had elevated baseline sympathetic burst incidence and total sympathetic activity compared to nonpregnant controls [18997216]. These findings suggest that sympathetic nerve activity is not reduced but rather increased throughout normal pregnancy.",
+          "abstained": false,
+          "citations": [
+            "26710772",
+            "18997216"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "26710772",
+            "18997216",
+            "5323845",
+            "13907928",
+            "8596837"
+          ],
+          "relevant": [
+            "13907928",
+            "18997216",
+            "5323845"
+          ],
+          "timings": {
+            "embed_ms": 15.86599973961711,
+            "search_ms": 0.231041107326746,
+            "generate_ms": 17099.310250021517
+          },
+          "prompt_tokens": 2759,
+          "completion_tokens": 113
+        },
+        {
+          "query_id": "1159",
+          "claim": "The DESMOND program demonstrates no significant impact on weight loss.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "11360768",
+            "6841927",
+            "12672066",
+            "22922353",
+            "7552215"
+          ],
+          "relevant": [
+            "12584053"
+          ],
+          "timings": {
+            "embed_ms": 43.91445918008685,
+            "search_ms": 0.5393745377659798,
+            "generate_ms": 11377.662958111614
+          },
+          "prompt_tokens": 2448,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1224",
+          "claim": "The latent infection of myeloid cells with human cytomegalovirus induces a number of changes in gene expression.",
+          "answer": "Yes, the latent infection of myeloid cells with human cytomegalovirus induces changes in gene expression, including the expression of a novel viral transcript with homology to human interleukin-10 [26133404]. Additionally, viral interleukin-10 expressed during the latent phase modulates the differentiation of latently infected myeloid cells [26873988]. These findings highlight the complex interplay between viral gene expression and host cell biology during latency.",
+          "abstained": false,
+          "citations": [
+            "26133404",
+            "26873988"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "21932050",
+            "26133404",
+            "26873988",
+            "27555165",
+            "10450300"
+          ],
+          "relevant": [
+            "21932050",
+            "34016987"
+          ],
+          "timings": {
+            "embed_ms": 49.955999944359064,
+            "search_ms": 0.20012538880109787,
+            "generate_ms": 12194.260166957974
+          },
+          "prompt_tokens": 1837,
+          "completion_tokens": 107
+        },
+        {
+          "query_id": "1246",
+          "claim": "The one-child policy has created a hospitable environment for female infants.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "23531592",
+            "35714909",
+            "42291761",
+            "108886332",
+            "25493293"
+          ],
+          "relevant": [
+            "7662395"
+          ],
+          "timings": {
+            "embed_ms": 53.64062497392297,
+            "search_ms": 0.20429212599992752,
+            "generate_ms": 6695.170832797885
+          },
+          "prompt_tokens": 1474,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1315",
+          "claim": "Transcription rates in S. cerevisiae range between 7 and 12 kb/min.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "16237005",
+            "365896",
+            "36606083",
+            "2817000",
+            "84580585"
+          ],
+          "relevant": [
+            "13072112",
+            "16237005"
+          ],
+          "timings": {
+            "embed_ms": 49.347708001732826,
+            "search_ms": 0.2303747460246086,
+            "generate_ms": 5481.826957780868
+          },
+          "prompt_tokens": 1326,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "1330",
+          "claim": "Tumor development occurs in conjunction with suppression of pro-inflammatory cytokines.",
+          "answer": "The provided abstracts do not directly address the suppression of pro-inflammatory cytokines in conjunction with tumor development. However, they do discuss the role of specific cytokines, such as IL-17, in promoting tumor development through the induction of tumor-promoting microenvironments and the regulation of myeloid-derived suppressor cells [25726838]. Additionally, the abstracts highlight the importance of inflammation in tumor development, including its role in promoting angiogenesis, metastasis, and subverting immune responses [4429118]. The relationship between tumor development and the suppression of pro-inflammatory cytokines is not explicitly mentioned in the provided abstracts.",
+          "abstained": false,
+          "citations": [
+            "25726838",
+            "4429118"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "25726838",
+            "4429118",
+            "13011249",
+            "3419802",
+            "24282306"
+          ],
+          "relevant": [
+            "14075252"
+          ],
+          "timings": {
+            "embed_ms": 44.80729065835476,
+            "search_ms": 0.23533403873443604,
+            "generate_ms": 11036.605542059988
+          },
+          "prompt_tokens": 1340,
+          "completion_tokens": 137
+        },
+        {
+          "query_id": "172",
+          "claim": "Basophils promote disease development in patients with systemic lupus erythematosus (SLE).",
+          "answer": "Basophils can promote disease development in patients with systemic lupus erythematosus (SLE) by activating T helper type 2 (T(H)2) cells and enhancing the production of self-reactive antibodies that cause lupus-like nephritis, as observed in Lyn(-/-) mice [12670680]. Individuals with SLE also have elevated serum IgE, self-reactive IgEs, and activated basophils associated with increased disease activity and active lupus nephritis [12670680]. Basophils were also present in the lymph nodes and spleen of subjects with SLE [12670680].",
+          "abstained": false,
+          "citations": [
+            "12670680"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "12670680",
+            "28149602",
+            "28015516",
+            "14853989",
+            "5448119"
+          ],
+          "relevant": [
+            "12670680"
+          ],
+          "timings": {
+            "embed_ms": 44.90733286365867,
+            "search_ms": 0.20683323964476585,
+            "generate_ms": 13897.322916891426
+          },
+          "prompt_tokens": 1778,
+          "completion_tokens": 142
+        },
+        {
+          "query_id": "196",
+          "claim": "C2 works synergistically with A-769662 to activate dephosphorylated AMPK.",
+          "answer": "C2 acts synergistically with the drug A769662 to activate AMPK α1-containing complexes [19313533]. The abstract does not specify whether the AMPK is dephosphorylated in this process.",
+          "abstained": false,
+          "citations": [
+            "19313533"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "19313533",
+            "26025820",
+            "1590744",
+            "23974474",
+            "3419709"
+          ],
+          "relevant": [
+            "19313533"
+          ],
+          "timings": {
+            "embed_ms": 47.19891585409641,
+            "search_ms": 0.21579209715127945,
+            "generate_ms": 9593.506459146738
+          },
+          "prompt_tokens": 1692,
+          "completion_tokens": 53
+        },
+        {
+          "query_id": "229",
+          "claim": "Carriers of HNF4A mutations are at reduced risk for diabetes.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "56893404",
+            "8202880",
+            "3113630",
+            "1447990",
+            "20388894"
+          ],
+          "relevant": [
+            "56893404"
+          ],
+          "timings": {
+            "embed_ms": 27.994582895189524,
+            "search_ms": 0.20295800641179085,
+            "generate_ms": 5579.137040767819
+          },
+          "prompt_tokens": 1253,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "243",
+          "claim": "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, transcription and nuclear localization.",
+          "answer": "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, as shown by the consolidation of smaller replication domains into larger units during differentiation [8148122]. Changes in replication timing are also coordinated with transcription changes, particularly for weak promoters [8148122]. Additionally, replication-timing changes are accompanied by rearrangements in subnuclear position [8148122]. The relationship between replication timing and nuclear localization is further supported by studies showing that changes in replication time are linked to changes in sub-nuclear organization [8759633].",
+          "abstained": false,
+          "citations": [
+            "8148122",
+            "8759633"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "8148122",
+            "8759633",
+            "14225271",
+            "27995781",
+            "22428640"
+          ],
+          "relevant": [
+            "8148122"
+          ],
+          "timings": {
+            "embed_ms": 45.55345792323351,
+            "search_ms": 0.19350042566657066,
+            "generate_ms": 10371.13691587001
+          },
+          "prompt_tokens": 1244,
+          "completion_tokens": 127
+        },
+        {
+          "query_id": "265",
+          "claim": "Clathrin stabilizes the spindle fiber apparatus during mitosis.",
+          "answer": "Clathrin stabilizes fibres of the mitotic spindle to aid congression of chromosomes, as shown by the depletion of clathrin heavy chain leading to destabilized kinetochore fibres and defective congression [2033917].",
+          "abstained": false,
+          "citations": [
+            "2033917"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "2033917",
+            "42035464",
+            "8747771",
+            "29183629",
+            "17805221"
+          ],
+          "relevant": [
+            "2033917"
+          ],
+          "timings": {
+            "embed_ms": 279.421666637063,
+            "search_ms": 0.3870832733809948,
+            "generate_ms": 8792.981499806046
+          },
+          "prompt_tokens": 1523,
+          "completion_tokens": 54
+        },
+        {
+          "query_id": "323",
+          "claim": "Deleting Raptor increases G-CSF levels.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "2014909",
+            "6962472",
+            "22174015",
+            "10790846",
+            "4658268"
+          ],
+          "relevant": [
+            "2014909"
+          ],
+          "timings": {
+            "embed_ms": 46.775124967098236,
+            "search_ms": 0.2166246995329857,
+            "generate_ms": 6380.816749762744
+          },
+          "prompt_tokens": 1702,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "341",
+          "claim": "Diabetes remission occurs more in people treated with conventional therapy than in people treated with laparoscopic adjustable gastric banding surgery.",
+          "answer": "Diabetes remission occurs more in people treated with laparoscopic adjustable gastric banding surgery than in people treated with conventional therapy. In a randomized controlled trial, 73% of participants in the surgical group achieved remission compared to 13% in the conventional-therapy group [7098463].",
+          "abstained": false,
+          "citations": [
+            "7098463"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "7098463",
+            "5824985",
+            "750781",
+            "12584053",
+            "29022271"
+          ],
+          "relevant": [
+            "7098463"
+          ],
+          "timings": {
+            "embed_ms": 40.740415919572115,
+            "search_ms": 0.20141713321208954,
+            "generate_ms": 14139.004957862198
+          },
+          "prompt_tokens": 2515,
+          "completion_tokens": 67
+        },
+        {
+          "query_id": "349",
+          "claim": "Diminished ovarian reserve is a reliable indicator of infertility in a non-infertile population.",
+          "answer": "The study found that women with low AMH values did not have a significantly different predicted probability of conceiving by 6 or 12 cycles of attempt compared with women with normal values [13497630]. This suggests that diminished ovarian reserve, as indicated by low AMH, may not be a reliable indicator of infertility in a non-infertile population. Similarly, women with high serum FSH values did not show a significantly different predicted probability of conceiving compared with women with normal values [13497630]. Therefore, the findings indicate that diminished ovarian reserve may not reliably predict infertility in a non-infertile population.",
+          "abstained": false,
+          "citations": [
+            "13497630"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "13497630",
+            "34198460",
+            "427865",
+            "8642784",
+            "308862"
+          ],
+          "relevant": [
+            "13497630"
+          ],
+          "timings": {
+            "embed_ms": 43.68187487125397,
+            "search_ms": 0.2038334496319294,
+            "generate_ms": 15574.41766699776
+          },
+          "prompt_tokens": 2143,
+          "completion_tokens": 136
+        },
+        {
+          "query_id": "39",
+          "claim": "A diminished ovarian reserve does not solely indicate infertility in an a priori non-infertile population.",
+          "answer": "The study indicates that women with low AMH values did not have a significantly different predicted probability of conceiving compared with women with normal values [13497630]. This suggests that diminished ovarian reserve, as indicated by low AMH, does not necessarily correlate with infertility in a non-infertile population. The findings imply that other factors may influence fertility outcomes. However, the study does not address other biomarkers or broader implications of diminished ovarian reserve.",
+          "abstained": false,
+          "citations": [
+            "13497630"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "13497630",
+            "34198460",
+            "427865",
+            "8642784",
+            "308862"
+          ],
+          "relevant": [
+            "13497630"
+          ],
+          "timings": {
+            "embed_ms": 51.714417058974504,
+            "search_ms": 0.20174961537122726,
+            "generate_ms": 4360.0470828823745
+          },
+          "prompt_tokens": 2145,
+          "completion_tokens": 95
+        },
+        {
+          "query_id": "44",
+          "claim": "A mutation in HNF4A leads to an increased risk of developing diabetes by the age of 14 years.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "56893404",
+            "1447990",
+            "3113630",
+            "4427060",
+            "8202880"
+          ],
+          "relevant": [
+            "56893404"
+          ],
+          "timings": {
+            "embed_ms": 40.5069999396801,
+            "search_ms": 0.23179175332188606,
+            "generate_ms": 4817.184957675636
+          },
+          "prompt_tokens": 1313,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "441",
+          "claim": "G-CSF increases the expansion and infiltration of MDSCs into tumors.",
+          "answer": "G-CSF increases the expansion and infiltration of MDSCs into tumors, as demonstrated by studies showing that tumor-initiating cells exhibit elevated G-CSF levels, which in turn promote MDSC accumulation and support tumor progression [2014909].",
+          "abstained": false,
+          "citations": [
+            "2014909"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "2014909",
+            "3559136",
+            "23816832",
+            "2030623",
+            "11291348"
+          ],
+          "relevant": [
+            "2014909"
+          ],
+          "timings": {
+            "embed_ms": 43.445125222206116,
+            "search_ms": 0.2282918430864811,
+            "generate_ms": 7730.673499871045
+          },
+          "prompt_tokens": 1627,
+          "completion_tokens": 53
+        },
+        {
+          "query_id": "479",
+          "claim": "Gpr124 increases BBB breakdown in mouse models of ischemic stroke.",
+          "answer": "Gpr124 conditional knockout (CKO) in the endothelia of adult mice resulted in BBB disruption and microvascular hemorrhage in mouse models of ischemic stroke [6325527].",
+          "abstained": false,
+          "citations": [
+            "6325527"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "6325527",
+            "32328114",
+            "7898952",
+            "16760369",
+            "2352142"
+          ],
+          "relevant": [
+            "6325527"
+          ],
+          "timings": {
+            "embed_ms": 38.11458311975002,
+            "search_ms": 0.2176249399781227,
+            "generate_ms": 10184.157917276025
+          },
+          "prompt_tokens": 1876,
+          "completion_tokens": 44
+        },
+        {
+          "query_id": "52",
+          "claim": "ALDH1 expression is associated with poorer prognosis for breast cancer primary tumors.",
+          "answer": "Yes, ALDH1 expression is associated with poorer prognosis for breast cancer primary tumors. In a series of 577 breast carcinomas, expression of ALDH1 detected by immunostaining correlated with poor prognosis [45638119].",
+          "abstained": false,
+          "citations": [
+            "45638119"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "45638119",
+            "29366489",
+            "32001951",
+            "8963413",
+            "14180565"
+          ],
+          "relevant": [
+            "45638119"
+          ],
+          "timings": {
+            "embed_ms": 43.90787472948432,
+            "search_ms": 0.20337523892521858,
+            "generate_ms": 9806.95225019008
+          },
+          "prompt_tokens": 1752,
+          "completion_tokens": 54
+        },
+        {
+          "query_id": "545",
+          "claim": "IFIT1 speeds viral replication by allowing for the proliferation of mis-capped viral RNAs.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "10559501",
+            "3308636",
+            "5137019",
+            "26731863",
+            "3493623"
+          ],
+          "relevant": [
+            "24221369"
+          ],
+          "timings": {
+            "embed_ms": 42.22787544131279,
+            "search_ms": 0.168707687407732,
+            "generate_ms": 6323.240790981799
+          },
+          "prompt_tokens": 1728,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "559",
+          "claim": "Immune responses in immune cells are geographically segregated.",
+          "answer": "Immune responses can be spatially organized, as evidenced by the formation of cytokine niches that create localized areas of high cytokine concentration, which contribute to cell-to-cell variability [4928282]. However, the provided abstracts do not explicitly mention geographic segregation of immune responses. The concept of immunologically privileged sites suggests that certain organs have distinct immune responses, but this is not the same as geographic segregation [9977329]. The abstracts do not provide information on the geographic distribution of immune responses beyond the context of specific organs.",
+          "abstained": false,
+          "citations": [
+            "4928282",
+            "9977329"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "4928282",
+            "9977329",
+            "45908102",
+            "3155731",
+            "3672261"
+          ],
+          "relevant": [
+            "3475317"
+          ],
+          "timings": {
+            "embed_ms": 41.793708223849535,
+            "search_ms": 0.20308373495936394,
+            "generate_ms": 11201.565583236516
+          },
+          "prompt_tokens": 1543,
+          "completion_tokens": 117
+        },
+        {
+          "query_id": "648",
+          "claim": "Integrated care is successful at tackling multiple comorbidities.",
+          "answer": "Integrated care shows promise in tackling multiple comorbidities, as evidenced by a randomized trial where multi-condition collaborative care led to significant improvements in disability and quality of life for patients with chronic physical diseases and depression [15041758]. The study demonstrated that integrated care can effectively address multiple conditions simultaneously, improving outcomes such as social role disability and global quality of life. However, the success of integrated care may depend on factors such as the specific conditions being managed, the structure of the care model, and the resources available. The evidence supports the effectiveness of integrated care in certain contexts but does not fully address all potential challenges or variations in success across different healthcare systems.",
+          "abstained": false,
+          "citations": [
+            "15041758"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "19945096",
+            "24318630",
+            "15041758",
+            "10893238",
+            "1338283"
+          ],
+          "relevant": [
+            "15041758"
+          ],
+          "timings": {
+            "embed_ms": 46.828791964799166,
+            "search_ms": 0.20345812663435936,
+            "generate_ms": 16166.362041141838
+          },
+          "prompt_tokens": 2254,
+          "completion_tokens": 137
+        },
+        {
+          "query_id": "652",
+          "claim": "Interferon stimulated genes (ISGs) Irf1, Irg1, Ifi27, and Rsad2 inhibit West Nile virus replication in cortical neurons.",
+          "answer": "The interferon-stimulated genes (ISGs) Ifi27, Irg1, and Rsad2 (also known as Viperin) are involved in antiviral effects against neurotropic viruses, including West Nile virus (WNV), in granule cell neurons [9433958]. However, there is no direct evidence provided in the abstracts that these ISGs inhibit WNV replication specifically in cortical neurons. The abstracts do not mention Irf1 in relation to WNV replication in cortical neurons. The role of IFN-β in controlling WNV infection has been observed in various cell types, but not specifically in cortical neurons [10559501].",
+          "abstained": false,
+          "citations": [
+            "9433958",
+            "10559501"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "9433958",
+            "10559501",
+            "34378726",
+            "26731863",
+            "3308636"
+          ],
+          "relevant": [
+            "9433958"
+          ],
+          "timings": {
+            "embed_ms": 41.58833296969533,
+            "search_ms": 0.20849984139204025,
+            "generate_ms": 12538.52833295241
+          },
+          "prompt_tokens": 1438,
+          "completion_tokens": 148
+        },
+        {
+          "query_id": "685",
+          "claim": "Lamins are associated with nuclear membrane structure maintenance.",
+          "answer": "Lamins are associated with nuclear membrane structure maintenance, as evidenced by the role of lamin A in the nuclear structural defects observed in Hutchinson-Gilford progeria syndrome [34747208]. Additionally, lamin B1 is involved in maintaining chromatin condensation and genome integrity, which are essential for proper nuclear structure [25036988]. The interaction of LC3 with lamin B1 further highlights the importance of lamins in nuclear lamina organization [4452659]. These findings collectively support the role of lamins in nuclear membrane structure maintenance.",
+          "abstained": false,
+          "citations": [
+            "34747208",
+            "25036988",
+            "4452659"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "34747208",
+            "22544171",
+            "25036988",
+            "4452659",
+            "2947540"
+          ],
+          "relevant": [
+            "4452659"
+          ],
+          "timings": {
+            "embed_ms": 47.642374876886606,
+            "search_ms": 0.1949169673025608,
+            "generate_ms": 11286.48691624403
+          },
+          "prompt_tokens": 1407,
+          "completion_tokens": 123
+        },
+        {
+          "query_id": "71",
+          "claim": "Activation of the Rac1 homolog CED-10 kills viable cells in SRGP-1 mutant Caenorhabditis elegans.",
+          "answer": "The abstract states that SRGP-1 functions as a GTPase activating protein (GAP) for CED-10 (Rac1) and that loss of srgp-1 function improves engulfment of apoptotic cells [1127562]. However, it does not mention that activation of CED-10 kills viable cells in SRGP-1 mutant C. elegans.",
+          "abstained": false,
+          "citations": [
+            "1127562"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "1127562",
+            "1797622",
+            "14332945",
+            "469066",
+            "52944377"
+          ],
+          "relevant": [
+            "1127562"
+          ],
+          "timings": {
+            "embed_ms": 43.3674999512732,
+            "search_ms": 0.21399976685643196,
+            "generate_ms": 10290.1926250197
+          },
+          "prompt_tokens": 1544,
+          "completion_tokens": 86
+        },
+        {
+          "query_id": "73",
+          "claim": "Activator-inhibitor pairs are provided ventrally by Xrl-sizzled.",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "36921186",
+            "19485649",
+            "40383969",
+            "14492964",
+            "18855191"
+          ],
+          "relevant": [
+            "6076903"
+          ],
+          "timings": {
+            "embed_ms": 37.68570767715573,
+            "search_ms": 0.2005002461373806,
+            "generate_ms": 7708.9922917075455
+          },
+          "prompt_tokens": 1675,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "774",
+          "claim": "Mice defective for deoxyribonucleic acid (DNA) polymerase I (polI) fail to reveal increased sensitivity to ionizing radiation (IR).",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "11569583",
+            "27635177",
+            "31293581",
+            "43014661",
+            "28441310"
+          ],
+          "relevant": [
+            "32275758"
+          ],
+          "timings": {
+            "embed_ms": 40.497333742678165,
+            "search_ms": 0.20304135978221893,
+            "generate_ms": 6958.1545842811465
+          },
+          "prompt_tokens": 1640,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "777",
+          "claim": "Mice defective for deoxyribonucleic acid (DNA) polymerase m (polm) reveal increased sensitivity to ionizing radiation (IR).",
+          "answer": "NOT_FOUND",
+          "abstained": true,
+          "citations": [],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "11569583",
+            "31293581",
+            "27635177",
+            "43014661",
+            "13025574"
+          ],
+          "relevant": [
+            "32275758"
+          ],
+          "timings": {
+            "embed_ms": 64.04204107820988,
+            "search_ms": 0.4048747941851616,
+            "generate_ms": 6041.918832808733
+          },
+          "prompt_tokens": 1672,
+          "completion_tokens": 3
+        },
+        {
+          "query_id": "894",
+          "claim": "Osteoparthritis (OA) is characterized by degeneration of articular cartilage, joint edge, and subchondral bone hyperplasia.",
+          "answer": "The provided abstracts do not mention subchondral bone hyperplasia as a characteristic of osteoarthritis (OA). However, they do describe degenerative changes in articular cartilage, such as the production of matrix metalloproteinases (MMPs) and proinflammatory cytokines by chondrocytes in OA cartilage compared with normal cartilage [22505710].",
+          "abstained": false,
+          "citations": [
+            "22505710"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "12130067",
+            "58050905",
+            "22505710",
+            "45651303",
+            "20186513"
+          ],
+          "relevant": [
+            "14724693"
+          ],
+          "timings": {
+            "embed_ms": 36.10600018873811,
+            "search_ms": 0.17395894974470139,
+            "generate_ms": 12659.383624792099
+          },
+          "prompt_tokens": 2093,
+          "completion_tokens": 87
+        },
+        {
+          "query_id": "908",
+          "claim": "PGE 2 suppresss intestinal tumor growth by altering the expression of tumor suppressing and DNA repair genes.",
+          "answer": "The claim that PGE2 suppresses intestinal tumor growth by altering the expression of tumor-suppressing and DNA repair genes is not supported by the abstracts. Instead, the abstracts indicate that PGE2 promotes intestinal tumor growth by silencing tumor-suppressor and DNA-repair genes through DNA methylation [6923961].",
+          "abstained": false,
+          "citations": [
+            "6923961"
+          ],
+          "invalid_citations": [],
+          "uncited": false,
+          "retrieved": [
+            "6923961",
+            "21181273",
+            "6945691",
+            "58006489",
+            "25238950"
+          ],
+          "relevant": [
+            "6923961"
+          ],
+          "timings": {
+            "embed_ms": 41.26508301123977,
+            "search_ms": 0.7109581492841244,
+            "generate_ms": 10730.285875033587
+          },
+          "prompt_tokens": 1746,
+          "completion_tokens": 71
+        }
+      ],
+      "out_of_domain": [
+        {
+          "question": "What is the capital of France?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "Who won the 2018 FIFA World Cup?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "How do I reverse a linked list in Python?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "What is the boiling point of ethanol at sea level?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        },
+        {
+          "question": "Which planet has the most moons?",
+          "answer": "NOT_FOUND",
+          "abstained": true
+        }
+      ]
+    }
+  },
+  "machine": "arm64 macOS-26.6.2-arm64-arm-64bit",
+  "finished_utc": "2026-10-19T00:09:03Z"
+}

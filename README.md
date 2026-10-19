@@ -1,8 +1,9 @@
 # SciFact RAG: retrieval service and end-to-end evaluation
 
-> **Status: draft, week 1 of 4.** The retrieval service and the retrieval
-> reproduction are done. Generation, citation, faithfulness, latency and cost
-> results do not exist yet; the tables below mark them as pending.
+> **Status: draft, week 2 of 4.** Retrieval service, retrieval reproduction,
+> and grounded generation with citations (`/ask`, local Ollama) are done.
+> Evaluation results for citations, faithfulness, latency and cost do not
+> exist yet; the tables below mark them as pending.
 
 This project turns an earlier controlled fine-tuning experiment
 (MiniLM, hard vs random negatives on BEIR SciFact, 3 seeds; personal fork of
@@ -104,8 +105,65 @@ server loads `SCIFACT_MODELS`, default `original,C-seed42`). It returns ranked
 `total_ms`). `GET /health` lists loaded models. Indexes are built by the
 reproduction script into `indexes/` (not committed).
 
+### `POST /ask`
+
+```bash
+curl -s -X POST localhost:8000/ask -H 'content-type: application/json' \
+  -d '{"query": "Statins reduce cardiovascular events.", "k": 5, "model": "C-seed42"}'
+```
+
+Retrieves the top `k` abstracts (1–20, default 5), sends only those to a local
+LLM through Ollama (default `qwen3:14b`, Q4_K_M; temperature 0, seed 0,
+thinking off; `SCIFACT_LLM` and `OLLAMA_URL` override), and returns:
+
+- `answer`, with inline `[doc_id]` citations after each finding;
+- `citations`: valid cited doc IDs (those among the retrieved abstracts) with titles;
+- `invalid_citations`: cited IDs that were *not* retrieved — reported, never silently dropped;
+- `abstained`: true when the model answers with the `NOT_FOUND` sentinel;
+- `uncited`: true for a non-abstaining answer with no valid citation;
+- `retrieved`, per-stage `timings` (`embed_ms`, `search_ms`, `generate_ms`,
+  `total_ms`), token `usage`, and `prompt_version`.
+
+The prompt (`scifact_rag/generation.py`, version `v1`) tells the model to use
+only the given abstracts, cite every finding, answer `NOT_FOUND` when the
+abstracts do not address the question, and not judge a claim true overall
+unless an abstract states it. LLM errors return 502; a server without an LLM
+returns 503 for `/ask`.
+
 Timings in responses are single-request wall-clock values, not benchmark
 results. Latency is measured in week 3.
+
+## Week 2 development check (validation claims, not results)
+
+`scripts/dev_ask.py --sample 30` ran prompt `v1` with `qwen3:14b` on 30
+validation claims (seeded sample of the original experiment's 160-claim
+validation split; official test claims are not used) for two retrievers, k = 5,
+plus 5 out-of-domain questions. Output: `results/dev/ask_validation_v1.json`.
+
+| Retriever | Claims with a relevant doc in top 5 | Abstained | Abstained although a relevant doc was retrieved | Answers with invalid citations | Uncited answers | Cited docs in qrels | Out-of-domain abstained |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Original MiniLM | 22/30 | 9/30 | 4/9 | 0/21 | 0/21 | 17/34 | 5/5 |
+| C, seed 42 | 21/30 | 10/30 | 4/10 | 0/20 | 0/20 | 16/28 | 5/5 |
+
+How to read this:
+
+- It checks that the pipeline behaves as designed: every non-abstaining answer
+  cited at least one retrieved abstract, no answer cited an ID outside the
+  retrieved set, and all out-of-domain questions got `NOT_FOUND`.
+- It is **not** a retriever comparison. 30 claims is small, the validation
+  split was used to choose the fine-tuning learning rate, and one seed (42) is
+  shown.
+- "Cited docs in qrels" understates correctness when SciFact's labels are
+  incomplete (an unlabelled abstract can still support the answer). That is why
+  faithfulness is judged separately in week 3.
+- Main issue found for week 3: the model abstained on 4 claims in each run
+  where a labelled relevant abstract was in the top 5 (over-abstention).
+  Prompt changes will be made and checked on validation claims only.
+- Generation time with a warm model, sequential single requests, one run on
+  Apple M4 Pro (48 GB): p50 8.6 s / p95 14.6 s (original) and 10.2 s / 16.2 s
+  (C seed 42), nearest rank over 30 requests. Mean prompt ≈ 1,750 tokens,
+  completion ≈ 66 tokens. Local Ollama has $0 marginal API cost (hardware and
+  electricity not counted). These are not the week-3 latency benchmark.
 
 ## Setup and tests
 
@@ -114,9 +172,11 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest -q
 ```
 
-32 unit tests (API validation and responses, FAISS ranking and tie-breaking,
-index save/load, metric known-answer fixtures, data parsing). They use a
-small hash-based fake encoder, so they need no model download. Environment
+57 unit tests (API validation and responses for `/search` and `/ask`,
+citation parsing, the NOT_FOUND abstain path, LLM failure handling, FAISS
+ranking and tie-breaking, index save/load, metric known-answer fixtures, data
+parsing). They use a hash-based fake encoder and a scripted fake LLM, so they
+need no model download and no Ollama server. Environment
 variables: `SCIFACT_HF_CACHE` (Hugging Face cache dir), `SCIFACT_ARTIFACTS`
 (fine-tuned models; default `~/scientific-retrieval/scientific-retrieval-artifacts`),
 `SCIFACT_INDEX_DIR`, `SCIFACT_MODELS`.
@@ -124,7 +184,7 @@ variables: `SCIFACT_HF_CACHE` (Hugging Face cache dir), `SCIFACT_ARTIFACTS`
 ## Plan
 
 - Week 1 (done): repo, README draft, FAISS indexes, retrieval reproduction, `/search` + tests.
-- Week 2: local LLM through Ollama; prompt that answers only from retrieved abstracts and cites doc IDs; `/ask` endpoint; tests for citation parsing and "not found" answers.
+- Week 2 (done): local LLM through Ollama; prompt that answers only from retrieved abstracts and cites doc IDs; `/ask` endpoint; tests for citation parsing and "not found" answers; development check on validation claims (below).
 - Week 3: evaluation harness for the full matrix; cross-encoder reranker ablation; latency and cost.
 - Week 4: Docker image with authentication or rate limiting; final README with results, limits and non-claims; GitHub Actions CI.
 
