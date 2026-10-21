@@ -218,8 +218,14 @@ about 2 s without reranking, 13–14 s at top 20, 27 s at top 50, 47 s at top 10
 **Judge.** `scifact_rag/judge.py` (version `j1`) and `JUDGE_RUBRIC.md` define
 sentence-level faithfulness and abstention justification. A human calibration
 set of 30 validation items (20 answers, 10 abstentions; `calibration/`) is
-waiting for labels. The judge model is not chosen yet; using the generator
-(`qwen3:14b`) to judge itself would bias the result.
+waiting for labels. Judge model: `gemma3:12b` through local Ollama (a
+different model family from the generator `qwen3:14b`, to avoid a model
+grading its own answers; $0 marginal API cost). Sanity check on 5 v1 answers
+outside the calibration set: a deliberately false answer was labelled
+NOT_SUPPORTED, but one cautious, mostly accurate answer had all 4 sentences
+labelled NOT_SUPPORTED, so the judge may be too strict on sentences that
+describe what the abstracts do not say. The human calibration will measure
+this before any judge numbers are reported.
 
 ## Setup and tests
 

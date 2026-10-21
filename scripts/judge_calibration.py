@@ -3,7 +3,7 @@
 Run only after every item has a human label.
 
     .venv/bin/python scripts/judge_calibration.py --answers results/dev/ask_validation_v2.json \
-        --labels calibration/labels_v2.csv --judge-llm <ollama model>
+        --labels calibration/labels_v2.csv --judge-llm gemma3:12b
 """
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--answers", type=Path, required=True)
     parser.add_argument("--labels", type=Path, required=True)
-    parser.add_argument("--judge-llm", required=True)
+    parser.add_argument("--judge-llm", default="gemma3:12b")
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args()
 
