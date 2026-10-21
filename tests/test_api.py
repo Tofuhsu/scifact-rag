@@ -95,7 +95,7 @@ def test_ask_returns_answer_citations_timings_and_usage(retriever):
     assert len(body["retrieved"]) == 3
     assert set(body["timings"]) == {"embed_ms", "search_ms", "generate_ms", "total_ms"}
     assert body["usage"] == {"llm": "fake-llm", "prompt_tokens": 100, "completion_tokens": 12}
-    assert body["prompt_version"] == "v1"
+    assert body["prompt_version"] == "v2"
 
 
 def test_ask_not_found_is_an_abstention(retriever):

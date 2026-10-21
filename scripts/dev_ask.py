@@ -50,6 +50,7 @@ def main():
     parser.add_argument("--k", type=int, default=5)
     parser.add_argument("--models", default="original,C-seed42")
     parser.add_argument("--llm", default="qwen3:14b")
+    parser.add_argument("--prompt-version", default=PROMPT_VERSION)
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args()
 
@@ -62,11 +63,11 @@ def main():
     llm.chat([{"role": "user", "content": "Reply with OK."}])  # load the model; excluded from timings
 
     report = {"split": "validation (development only)", "sample": args.sample, "sample_seed": args.seed,
-              "k": args.k, "llm": args.llm, "prompt_version": PROMPT_VERSION, "models": {},
+              "k": args.k, "llm": args.llm, "prompt_version": args.prompt_version, "models": {},
               "machine": f"{platform.machine()} {platform.platform()}"}
     for label in [m.strip() for m in args.models.split(",")]:
         answerer = Answerer(Retriever(Encoder(label), FaissIndex.load(ROOT / "indexes" / label), titles),
-                            llm, abstracts)
+                            llm, abstracts, args.prompt_version)
         rows = []
         for i in picked:
             out = answerer.ask(claims[i], k=args.k)
@@ -106,7 +107,7 @@ def main():
               f"OOD abstained {s['out_of_domain_abstained']}, generate p50 {s['generate_ms']['p50']:.0f} ms",
               flush=True)
 
-    output = args.output or ROOT / "results" / "dev" / f"ask_validation_{PROMPT_VERSION}.json"
+    output = args.output or ROOT / "results" / "dev" / f"ask_validation_{args.prompt_version}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     report["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     output.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

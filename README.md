@@ -1,6 +1,6 @@
 # SciFact RAG: retrieval service and end-to-end evaluation
 
-> **Status: draft, week 2 of 4.** Retrieval service, retrieval reproduction,
+> **Status: draft, week 3 of 4 in progress.** Retrieval service, retrieval reproduction,
 > and grounded generation with citations (`/ask`, local Ollama) are done.
 > Evaluation results for citations, faithfulness, latency and cost do not
 > exist yet; the tables below mark them as pending.
@@ -165,6 +165,62 @@ How to read this:
   completion ≈ 66 tokens. Local Ollama has $0 marginal API cost (hardware and
   electricity not counted). These are not the week-3 latency benchmark.
 
+## Week 3 progress (validation claims only)
+
+**Prompt v2.** Reviewing the week-2 "abstained although a relevant doc was
+retrieved" cases showed that 3 of the 4 C-seed-42 cases were reasonable: the
+labelled abstracts do not state anything about the claim (SciFact labels
+documents, and the BEIR abstract text can be short). One case (query 323) was
+a real miss: the abstract's result runs against the claim and the model said
+NOT_FOUND. Prompt v2 asks for contradicting or partial evidence to be reported
+with citations, and raises the per-abstract limit from 2,000 to 4,000
+characters (truncates 17 of 5,183 abstracts instead of 535). The parser now
+also treats an explanation followed by `[NOT_FOUND]` with no citations as an
+abstention.
+
+Same 30 validation claims, k = 5, `qwen3:14b` (counts re-parsed with the current parser):
+
+| Prompt | Retriever | Abstained | Abstained although a relevant doc was retrieved | Cited docs in qrels | Answers with invalid citations |
+| --- | --- | --- | --- | --- | --- |
+| v1 | Original | 9/30 | 4/9 | 17/34 | 0/21 |
+| v2 | Original | 6/30 | 3/6 | 20/34 | 0/24 |
+| v1 | C, seed 42 | 10/30 | 4/10 | 16/28 | 0/20 |
+| v2 | C, seed 42 | 6/30 | 1/6 | 20/33 | 0/24 |
+
+Fewer abstentions could also mean more unsupported answers; the faithfulness
+judge (below) checks that before v2 is frozen.
+
+**Reranker depth.** `scripts/dev_rerank.py`: cross-encoder
+`cross-encoder/ms-marco-MiniLM-L-6-v2` (revision `233902d`) reranking the
+bi-encoder's top N, 160 validation claims, Apple M4 Pro MPS. Output:
+`results/dev/rerank_validation.json`.
+
+| Retriever | No rerank nDCG@10 / R@10 | Rerank top 20 | Rerank top 50 | Rerank top 100 |
+| --- | --- | --- | --- | --- |
+| Original | 0.6134 / 0.7516 | 0.6498 / 0.7672 | 0.6533 / 0.7891 | 0.6680 / 0.7995 |
+| C, seed 13 | 0.6150 / 0.7536 | 0.6586 / 0.7672 | 0.6664 / 0.7797 | 0.6672 / 0.7891 |
+| C, seed 42 | 0.6158 / 0.7599 | 0.6551 / 0.7703 | 0.6643 / 0.7797 | 0.6678 / 0.7891 |
+| C, seed 2026 | 0.6146 / 0.7536 | 0.6640 / 0.7766 | 0.6665 / 0.7797 | 0.6678 / 0.7891 |
+
+Wall time for all 160 claims (embedding + search + rerank, warm, sequential):
+about 2 s without reranking, 13–14 s at top 20, 27 s at top 50, 47 s at top 100.
+
+- On validation, the fine-tuned models are only +0.001 to +0.002 nDCG@10 over
+  the original without reranking, much less than the +0.033 on test. The
+  validation split was used to choose the fine-tuning learning rate, and 160
+  claims is a small sample, so neither number is a clean estimate on its own.
+- Reranking adds +0.04 to +0.05 nDCG@10 on validation for every retriever. With
+  reranking, the original and C models are within 0.002 of each other at top 100.
+- Proposed frozen depth for the test run: **top 50**. For the C models, top 100
+  adds at most 0.0035 nDCG@10 for about 1.7× the rerank time; the original
+  model gains more from top 100 (+0.0147), which will be stated with the result.
+
+**Judge.** `scifact_rag/judge.py` (version `j1`) and `JUDGE_RUBRIC.md` define
+sentence-level faithfulness and abstention justification. A human calibration
+set of 30 validation items (20 answers, 10 abstentions; `calibration/`) is
+waiting for labels. The judge model is not chosen yet; using the generator
+(`qwen3:14b`) to judge itself would bias the result.
+
 ## Setup and tests
 
 ```bash
@@ -172,7 +228,8 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest -q
 ```
 
-57 unit tests (API validation and responses for `/search` and `/ask`,
+76 unit tests (API validation and responses for `/search` and `/ask`, the
+judge and its agreement statistics, reranking,
 citation parsing, the NOT_FOUND abstain path, LLM failure handling, FAISS
 ranking and tie-breaking, index save/load, metric known-answer fixtures, data
 parsing). They use a hash-based fake encoder and a scripted fake LLM, so they

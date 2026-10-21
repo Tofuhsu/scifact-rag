@@ -1,7 +1,7 @@
 import pytest
 
-from scifact_rag.generation import (MAX_ABSTRACT_CHARS, NOT_FOUND, SYSTEM_PROMPT, Answerer, LLMResult,
-                                    build_messages, parse_answer)
+from scifact_rag.generation import (MAX_ABSTRACT_CHARS, NOT_FOUND, PROMPT_VERSION, SYSTEM_PROMPT, SYSTEM_PROMPTS,
+                                    Answerer, LLMResult, build_messages, parse_answer)
 
 ALLOWED = ["101", "102", "103"]
 
@@ -47,18 +47,36 @@ def test_sentinel_inside_a_longer_answer_is_not_an_abstention():
     assert not parsed.abstained and parsed.citations == ["101"]
 
 
+def test_explained_sentinel_without_citations_is_an_abstention():
+    raw = f"The abstracts do not mention Xrl-sizzled. [{NOT_FOUND}]"
+    parsed = parse_answer(raw, ALLOWED)
+    assert parsed.abstained and parsed.text == raw and parsed.citations == [] and not parsed.uncited
+
+
 def test_think_block_is_stripped():
     parsed = parse_answer("<think>maybe [999]</think>Answer [101].", ALLOWED)
     assert parsed.text == "Answer [101]." and parsed.invalid_citations == []
 
 
+@pytest.mark.parametrize("version", ["v1", "v2"])
+def test_build_messages_uses_versioned_prompt_and_limit(version):
+    limit = MAX_ABSTRACT_CHARS[version]
+    messages = build_messages("q", [("101", "T", "y" * (limit + 10))], version)
+    assert messages[0]["content"] == SYSTEM_PROMPTS[version]
+    assert "y" * limit in messages[1]["content"] and "y" * (limit + 1) not in messages[1]["content"]
+
+
+def test_v2_prompt_asks_for_contradicting_evidence():
+    assert "contradicts" in SYSTEM_PROMPTS["v2"] and NOT_FOUND in SYSTEM_PROMPTS["v2"]
+
+
 def test_build_messages_labels_abstracts_by_id_and_truncates():
-    long = "x" * (MAX_ABSTRACT_CHARS + 50)
+    long = "x" * (MAX_ABSTRACT_CHARS[PROMPT_VERSION] + 50)
     messages = build_messages("  Does X cause Y? ", [("101", "Title A", "Body A"), ("102", "Title B", long)])
     assert messages[0] == {"role": "system", "content": SYSTEM_PROMPT}
     user = messages[1]["content"]
     assert "[101] Title A\nBody A" in user and "[102] Title B" in user
-    assert "x" * (MAX_ABSTRACT_CHARS + 1) not in user and user.endswith("Question or claim: Does X cause Y?")
+    assert "x" * (MAX_ABSTRACT_CHARS[PROMPT_VERSION] + 1) not in user and user.endswith("Question or claim: Does X cause Y?")
     assert NOT_FOUND in SYSTEM_PROMPT
 
 
