@@ -241,6 +241,12 @@ generator `qwen3:14b`).
   items it was not tuned on. With 20 and 10 items, these agreement figures are
   themselves imprecise.
 
+**Plan for the test run.** Faithfulness will be labelled by a human on a
+blinded, paired sample (30 test claims × 3 settings, plus 10 repeated items
+for self-consistency); automatic metrics and latency cover all 300 claims for
+six settings. The full plan is in [`PROTOCOL.md`](PROTOCOL.md), which is
+frozen before the test set is used.
+
 ## Setup and tests
 
 ```bash
