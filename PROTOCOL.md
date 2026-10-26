@@ -1,7 +1,7 @@
 # Test-set protocol (frozen before the test run)
 
-Status: **draft — becomes frozen when the author approves it and it is
-committed.** `scripts/run_test_matrix.py` refuses to run unless it is given
+Status: **frozen 2026-10-25, approved by the author before any test-set
+generation.** `scripts/run_test_matrix.py` refuses to run unless it is given
 this file's SHA-256, so the test run is tied to the exact text below. Any change
 after the run is reported as a deviation, never silently applied.
 
