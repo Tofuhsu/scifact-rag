@@ -100,11 +100,13 @@ def main():
         rows = []
         started = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         for q, c in zip(query_ids, claims):
+            # Per-row wall-clock start, so rows overlapping outside load can be identified later.
+            row_start = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime()) + f".{int(time.time() * 1000) % 1000:03d}Z"
             t0 = time.perf_counter()
             out = answerer.ask(c, k=K)
             total_ms = 1000 * (time.perf_counter() - t0)
             p = out["parsed"]
-            rows.append({"query_id": q, "claim": c, "answer": p.text, "abstained": p.abstained,
+            rows.append({"query_id": q, "started_utc": row_start, "claim": c, "answer": p.text, "abstained": p.abstained,
                          "citations": p.citations, "invalid_citations": p.invalid_citations, "uncited": p.uncited,
                          "retrieved": [h.doc_id for h in out["hits"]], "relevant": sorted(qrels[q]),
                          "timings": dict(out["timings"], total_ms=total_ms),
