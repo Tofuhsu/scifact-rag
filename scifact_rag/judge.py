@@ -47,20 +47,39 @@ def _abstract_block(passages):
     return "\n\n".join(f"[{d}] {t.strip()}\n{a.strip()}" for d, t, a in passages) or "(none)"
 
 
-FAITHFULNESS_SYSTEM = """You check whether sentences of an answer are supported by the abstracts they cite.
+FAITHFULNESS_SYSTEMS = {
+    "j1": """You check whether sentences of an answer are supported by the abstracts they cite.
 For each numbered sentence, use ONLY the abstracts shown. Labels:
 - SUPPORTED: everything the sentence states is stated in, or directly follows from, the abstracts.
 - PARTIAL: part of the sentence is supported, but it adds or overstates something the abstracts do not state.
 - NOT_SUPPORTED: the abstracts do not state it, or contradict it.
 A sentence that only says what the abstracts do NOT cover is SUPPORTED if that is accurate.
-Return one label per sentence, in order."""
+Return one label per sentence, in order.""",
+    # j2: after calibration of j1 (validation). Uncited framing/summary sentences are judged against the
+    # cited abstracts and the rest of the answer; explicit checks for direction of effect and overreach.
+    "j2": """You check whether sentences of an answer are supported by the abstracts it cites.
+For each numbered sentence, use ONLY the abstracts shown, and read the whole answer first. Labels:
+- SUPPORTED: everything the sentence states is stated in, or directly follows from, the abstracts.
+- PARTIAL: part of the sentence is supported, but it adds or overstates something the abstracts do not state.
+- NOT_SUPPORTED: the abstracts do not state it, or contradict it.
+Rules:
+1. A sentence without its own citation may introduce or summarize findings cited elsewhere in the answer
+   (e.g. "The evidence contradicts the claim."). Label it by whether the cited abstracts support it.
+2. A sentence that only says what the abstracts do NOT cover is SUPPORTED if that is accurate.
+3. Check the direction of every effect. If an abstract shows that removing or knocking out X causes Y,
+   then X prevents Y; an answer saying X causes or increases Y is NOT_SUPPORTED.
+4. Check scope: a finding in one cell type, population, species or condition does not support a statement
+   about a different or broader one. A finding on a related topic does not support the specific claim.
+Return one label per sentence, in order.""",
+}
+FAITHFULNESS_SYSTEM = FAITHFULNESS_SYSTEMS["j1"]
 
 
-def faithfulness_messages(claim, sentences, cited_passages):
+def faithfulness_messages(claim, sentences, cited_passages, version="j1"):
     numbered = "\n".join(f"{i}. {s}" for i, s in enumerate(sentences, 1))
     user = (f"Abstracts cited by the answer:\n\n{_abstract_block(cited_passages)}\n\n"
             f"Question or claim: {claim}\n\nAnswer sentences:\n{numbered}")
-    return [{"role": "system", "content": FAITHFULNESS_SYSTEM}, {"role": "user", "content": user}]
+    return [{"role": "system", "content": FAITHFULNESS_SYSTEMS[version]}, {"role": "user", "content": user}]
 
 
 def faithfulness_schema(n):
@@ -85,14 +104,17 @@ def abstention_messages(claim, passages):
 class Judge:
     """llm: has .chat(messages, schema=...) returning an object with .content (JSON text)."""
 
-    def __init__(self, llm):
+    def __init__(self, llm, version=JUDGE_VERSION):
+        if version not in FAITHFULNESS_SYSTEMS:
+            raise ValueError(f"Unknown judge version {version}")
         self.llm = llm
+        self.version = version
 
     def faithfulness(self, claim, answer, cited_passages):
         sentences = split_sentences(answer)
         if not sentences:
             raise ValueError("Cannot judge an empty answer")
-        reply = self.llm.chat(faithfulness_messages(claim, sentences, cited_passages),
+        reply = self.llm.chat(faithfulness_messages(claim, sentences, cited_passages, self.version),
                               schema=faithfulness_schema(len(sentences)))
         labels = json.loads(reply.content)["labels"]
         if len(labels) != len(sentences) or any(label not in LABELS for label in labels):

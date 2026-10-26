@@ -37,6 +37,7 @@ def main():
     parser.add_argument("--answers", type=Path, required=True)
     parser.add_argument("--labels", type=Path, required=True)
     parser.add_argument("--judge-llm", default="gemma3:12b")
+    parser.add_argument("--judge-version", default=JUDGE_VERSION)
     parser.add_argument("--output", type=Path, default=None)
     args = parser.parse_args()
 
@@ -52,7 +53,7 @@ def main():
         raise SystemExit(f"{len(missing)}/{len(labels)} items have no human_label: {', '.join(missing)}")
     corpus = load_corpus()
     passages = {d: (d, t, a) for d, t, a in zip(corpus.doc_ids, corpus.titles, corpus.abstracts)}
-    judge = Judge(OllamaClient(model=args.judge_llm))
+    judge = Judge(OllamaClient(model=args.judge_llm), version=args.judge_version)
 
     items, pairs = [], {"faithfulness": [], "abstention": []}
     for lab in labels:
@@ -69,11 +70,11 @@ def main():
         items.append({**lab, "human": human, "judge": judged, "judge_detail": out})
         print(f"{lab['item_id']} {lab['kind']:12s} human={human!s:5s} judge={judged!s:5s}", flush=True)
 
-    summary = {"judge_llm": args.judge_llm, "judge_version": JUDGE_VERSION, "split": "validation",
+    summary = {"judge_llm": args.judge_llm, "judge_version": args.judge_version, "split": "validation",
                "faithfulness": agreement(pairs["faithfulness"]) if pairs["faithfulness"] else None,
                "abstention": agreement(pairs["abstention"]) if pairs["abstention"] else None,
                "items": items}
-    output = args.output or args.labels.with_name(f"agreement_{args.labels.stem}_{JUDGE_VERSION}.json")
+    output = args.output or args.labels.with_name(f"agreement_{args.labels.stem}_{args.judge_version}.json")
     output.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for kind in ("faithfulness", "abstention"):
         a = summary[kind]

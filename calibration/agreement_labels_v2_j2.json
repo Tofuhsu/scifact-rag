@@ -1,0 +1,659 @@
+{
+  "judge_llm": "gemma3:12b",
+  "judge_version": "j2",
+  "split": "validation",
+  "faithfulness": {
+    "pairs": 20,
+    "agree": 11,
+    "agreement": 0.55,
+    "cohen_kappa": -0.2857142857142861
+  },
+  "abstention": {
+    "pairs": 10,
+    "agree": 9,
+    "agreement": 0.9,
+    "cohen_kappa": 0.0
+  },
+  "items": [
+    {
+      "item_id": "v2-01",
+      "kind": "faithfulness",
+      "query_id": "685",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Lamins are associated with nuclear membrane structure maintenance, as evidenced by the role of lamin A in the nuclear structural defects observed in Hutchinson-Gilford progeria syndrome [34747208].",
+          "Additionally, lamin B1 is involved in maintaining chromatin condensation and genome integrity, which are essential for proper nuclear structure [25036988].",
+          "The interaction of LC3 with lamin B1 further highlights the importance of lamins in nuclear lamina organization [4452659].",
+          "These findings collectively support the role of lamins in nuclear membrane structure maintenance."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-02",
+      "kind": "faithfulness",
+      "query_id": "323",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": false,
+      "judge_detail": {
+        "sentences": [
+          "The provided abstracts do not mention any relationship between deleting Raptor and G-CSF levels. [2014909] discusses the role of mTOR signaling in regulating G-CSF but does not address the effect of Raptor deletion on G-CSF levels. [22174015] mentions Raptor but does not discuss G-CSF.",
+          "Therefore, the claim is not supported by the given abstracts."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "NOT_SUPPORTED"
+        ],
+        "faithful": false
+      }
+    },
+    {
+      "item_id": "v2-03",
+      "kind": "abstention",
+      "query_id": "774",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-04",
+      "kind": "faithfulness",
+      "query_id": "894",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": false,
+      "judge_detail": {
+        "sentences": [
+          "The provided abstracts do not mention subchondral bone hyperplasia as a characteristic of osteoarthritis (OA).",
+          "However, they do describe degenerative changes in articular cartilage, such as fibrillations, chondrocyte clusters, and degenerative matrix changes in OA [22505710].",
+          "The abstracts also mention changes in the infrapatellar fat pad and synovial fluid cytokine levels in OA, but they do not address subchondral bone hyperplasia [37562370, 45651303]."
+        ],
+        "labels": [
+          "NOT_SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": false
+      }
+    },
+    {
+      "item_id": "v2-05",
+      "kind": "abstention",
+      "query_id": "545",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-06",
+      "kind": "faithfulness",
+      "query_id": "648",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Integrated care is successful at tackling multiple comorbidities, as shown by a randomized trial where integrated care for chronic physical diseases and depression significantly reduced disability and improved quality of life [15041758].",
+          "The study demonstrated that integrated care can lead to better outcomes for patients with multiple conditions."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-07",
+      "kind": "abstention",
+      "query_id": "1315",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-08",
+      "kind": "faithfulness",
+      "query_id": "265",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Clathrin stabilizes fibres of the mitotic spindle to aid congression of chromosomes, as shown by the depletion of clathrin heavy chain leading to destabilized kinetochore fibres and defective congression [2033917]."
+        ],
+        "labels": [
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-09",
+      "kind": "faithfulness",
+      "query_id": "685",
+      "retriever": "original",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Lamins are associated with nuclear membrane structure maintenance, as evidenced by the role of lamin A in the nuclear structural defects observed in Hutchinson-Gilford progeria syndrome [34747208].",
+          "Additionally, lamin B1 interacts with the autophagy protein LC3/Atg8, which is involved in maintaining nuclear lamina components [4452659].",
+          "The loss of lamin B1 leads to changes in nuclear structure, including decondensation of chromosome territories and increased nuclear blebs [25036988].",
+          "These findings support the involvement of lamins in the maintenance of nuclear membrane structure."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-10",
+      "kind": "abstention",
+      "query_id": "774",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-11",
+      "kind": "abstention",
+      "query_id": "1159",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-12",
+      "kind": "abstention",
+      "query_id": "1246",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-13",
+      "kind": "abstention",
+      "query_id": "73",
+      "retriever": "original",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-14",
+      "kind": "abstention",
+      "query_id": "73",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-15",
+      "kind": "abstention",
+      "query_id": "323",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-16",
+      "kind": "faithfulness",
+      "query_id": "1330",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The provided abstracts do not directly address the suppression of pro-inflammatory cytokines in conjunction with tumor development.",
+          "Instead, they describe the promotion of tumor development by pro-inflammatory cytokines such as IL-17 and the role of inflammatory environments in tumor progression [25726838, 4429118].",
+          "The abstracts do not mention suppression of pro-inflammatory cytokines in the context of tumor development.",
+          "Therefore, the claim is not supported by the given abstracts."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-17",
+      "kind": "faithfulness",
+      "query_id": "1120",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": false,
+      "judge_detail": {
+        "sentences": [
+          "The evidence contradicts the claim.",
+          "Sympathetic nerve activity is increased during normal pregnancy, as shown by higher muscle sympathetic nerve activity (MSNA) in pregnant women compared to nonpregnant controls [5323845].",
+          "Additionally, studies have found increased sympathetic activation during early pregnancy and in the third trimester of normotensive pregnancy [26710772, 13907928].",
+          "These findings indicate that sympathetic nerve activity is not reduced but rather elevated throughout normal pregnancy."
+        ],
+        "labels": [
+          "NOT_SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": false
+      }
+    },
+    {
+      "item_id": "v2-18",
+      "kind": "faithfulness",
+      "query_id": "1330",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The provided abstracts do not directly address the suppression of pro-inflammatory cytokines in conjunction with tumor development.",
+          "However, they do discuss the role of specific cytokines, such as IL-17, in promoting tumor development through the induction of tumor-promoting microenvironments and the regulation of myeloid-derived suppressor cells [25726838].",
+          "Abstracts also highlight the role of inflammation in tumor development, indicating that inflammation can be a tumorigenic factor [4429118].",
+          "There is no evidence provided that supports the claim that tumor development occurs in conjunction with the suppression of pro-inflammatory cytokines."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-19",
+      "kind": "faithfulness",
+      "query_id": "243",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, as shown by the consolidation of smaller replication domains into larger units during differentiation [8148122].",
+          "Changes in replication timing are also coordinated with transcription changes, particularly for weak promoters [8148122].",
+          "Additionally, replication-timing changes are accompanied by rearrangements in subnuclear position [8148122].",
+          "These findings support the claim that differentiation involves changes in replication timing, transcription, and nuclear localization."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-20",
+      "kind": "faithfulness",
+      "query_id": "243",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Cellular differentiation of embryonic stem cells is accompanied by changes in replication timing, as shown by the consolidation of smaller differentially replicating domains into larger coordinately replicated units [8148122].",
+          "Changes in replication timing are coordinated with transcription changes, particularly for weak promoters [8148122].",
+          "Additionally, these changes are accompanied by rearrangements in subnuclear position [8148122].",
+          "The study also highlights the relationship between replication timing and isochore GC content and LINE-1 transposable element density [8148122]."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-21",
+      "kind": "faithfulness",
+      "query_id": "652",
+      "retriever": "original",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The abstracts do not directly state that ISGs Irf1, Irg1, Ifi27, and Rsad2 inhibit West Nile virus replication in cortical neurons.",
+          "However, they do mention that ISGs such as Ifi27, Irg1, and Rsad2 mediate antiviral effects against neurotropic viruses in granule cell neurons [9433958].",
+          "There is no specific information provided about the inhibition of West Nile virus replication in cortical neurons by these ISGs."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-22",
+      "kind": "faithfulness",
+      "query_id": "349",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The claim that diminished ovarian reserve is a reliable indicator of infertility in a non-infertile population is not supported by the evidence presented in the abstracts.",
+          "The study [13497630] found that biomarkers indicating diminished ovarian reserve were not associated with reduced fertility among women aged 30 to 44 years without a history of infertility.",
+          "Therefore, the findings do not support the use of these biomarkers to assess natural fertility in this population."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-23",
+      "kind": "faithfulness",
+      "query_id": "559",
+      "retriever": "C-seed42",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The concept of geographic segregation of immune responses is not directly addressed in the provided abstracts.",
+          "However, the abstracts do mention that immune cells communicate via cytokines, and the spatial extent of this communication is quantified in certain contexts [4928282].",
+          "Additionally, tissue-resident memory T cells are described as being specialized for local immunity, suggesting a degree of localization in immune responses [3155731].",
+          "These findings do not explicitly support or contradict the claim of geographic segregation."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-24",
+      "kind": "faithfulness",
+      "query_id": "1224",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Yes, the latent infection of myeloid cells with human cytomegalovirus induces changes in gene expression, as evidenced by the detection of specific viral transcripts during latency, such as the UL111.5A-region transcript [26133404].",
+          "Additionally, the expression of viral interleukin-10 (vIL-10) during latency has been shown to modulate the differentiation of latently infected myeloid progenitors [26873988].",
+          "These findings highlight the impact of HCMV latency on gene expression in myeloid cells [26133404, 26873988]."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-25",
+      "kind": "abstention",
+      "query_id": "1315",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "has_relevant_information": false,
+        "justified": true,
+        "doc_ids": []
+      }
+    },
+    {
+      "item_id": "v2-26",
+      "kind": "faithfulness",
+      "query_id": "39",
+      "retriever": "C-seed42",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "The study found that among women aged 30 to 44 years without a history of infertility, biomarkers indicating diminished ovarian reserve were not associated with reduced fertility [13497630].",
+          "This suggests that a diminished ovarian reserve does not solely indicate infertility in this population.",
+          "The findings do not support the use of these biomarkers to assess natural fertility for women with these characteristics [13497630].",
+          "No other abstracts address this specific claim."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-27",
+      "kind": "faithfulness",
+      "query_id": "441",
+      "retriever": "C-seed42",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "G-CSF increases the expansion and infiltration of MDSCs into tumors, as demonstrated by studies showing that tumor-initiating cells exhibit elevated G-CSF, which promotes MDSC accumulation [2014909]."
+        ],
+        "labels": [
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-28",
+      "kind": "faithfulness",
+      "query_id": "341",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": false,
+      "judge_detail": {
+        "sentences": [
+          "Diabetes remission occurs more in people treated with laparoscopic adjustable gastric banding surgery than in people treated with conventional therapy.",
+          "In a randomized controlled trial, remission of type 2 diabetes was achieved by 73% in the surgical group and 13% in the conventional-therapy group [7098463]."
+        ],
+        "labels": [
+          "NOT_SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": false
+      }
+    },
+    {
+      "item_id": "v2-29",
+      "kind": "faithfulness",
+      "query_id": "479",
+      "retriever": "original",
+      "human_label": "no",
+      "sentence_labels": "",
+      "notes": "",
+      "human": false,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Yes, Gpr124 increases BBB breakdown in mouse models of ischemic stroke, as evidenced by the study showing that Gpr124 conditional knockout (CKO) in the endothelia of adult mice resulted in BBB disruption and microvascular hemorrhage in mouse models of ischemic stroke [6325527]."
+        ],
+        "labels": [
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    },
+    {
+      "item_id": "v2-30",
+      "kind": "faithfulness",
+      "query_id": "559",
+      "retriever": "original",
+      "human_label": "yes",
+      "sentence_labels": "",
+      "notes": "",
+      "human": true,
+      "judge": true,
+      "judge_detail": {
+        "sentences": [
+          "Immune responses in immune cells can be geographically segregated, as evidenced by the formation of localized cytokine niches with sharp boundaries, which contribute to cell-to-cell variability [4928282].",
+          "Additionally, tissue-resident memory T cells are specialized for regional immunity, indicating a degree of geographic segregation in immune responses [3155731].",
+          "These findings support the idea that immune responses are not uniformly distributed but are instead localized to specific areas."
+        ],
+        "labels": [
+          "SUPPORTED",
+          "SUPPORTED",
+          "SUPPORTED"
+        ],
+        "faithful": true
+      }
+    }
+  ]
+}

@@ -215,17 +215,31 @@ about 2 s without reranking, 13–14 s at top 20, 27 s at top 50, 47 s at top 10
   adds at most 0.0035 nDCG@10 for about 1.7× the rerank time; the original
   model gains more from top 100 (+0.0147), which will be stated with the result.
 
-**Judge.** `scifact_rag/judge.py` (version `j1`) and `JUDGE_RUBRIC.md` define
-sentence-level faithfulness and abstention justification. A human calibration
-set of 30 validation items (20 answers, 10 abstentions; `calibration/`) is
-waiting for labels. Judge model: `gemma3:12b` through local Ollama (a
-different model family from the generator `qwen3:14b`, to avoid a model
-grading its own answers; $0 marginal API cost). Sanity check on 5 v1 answers
-outside the calibration set: a deliberately false answer was labelled
-NOT_SUPPORTED, but one cautious, mostly accurate answer had all 4 sentences
-labelled NOT_SUPPORTED, so the judge may be too strict on sentences that
-describe what the abstracts do not say. The human calibration will measure
-this before any judge numbers are reported.
+**Judge calibration (failed so far).** `scifact_rag/judge.py`, `JUDGE_RUBRIC.md`.
+The author labelled 30 validation items (20 answers, 10 abstentions;
+`calibration/labels_v2.csv`, committed before the judge was run on them).
+Judge: `gemma3:12b` through local Ollama (a different family from the
+generator `qwen3:14b`).
+
+| Judge prompt | Faithfulness agreement | Cohen's kappa | Abstention agreement | Cohen's kappa |
+| --- | --- | --- | --- | --- |
+| j1 | 12/20 | −0.07 | 9/10 | 0.00 |
+| j2 (revised after seeing j1 errors, same 30 items) | 11/20 | −0.29 | 9/10 | 0.00 |
+
+- Faithfulness agreement is no better than chance. Where the judge was
+  stricter than the human (4 items), it marked uncited framing or summary
+  sentences ("The evidence contradicts the claim.") as NOT_SUPPORTED. Where it
+  was more lenient (4 items), it missed overreach and reversed direction of
+  effect (an abstract showing that knocking out Gpr124 causes BBB disruption was
+  accepted as support for "Gpr124 increases BBB breakdown").
+- j2 targeted both patterns and did worse even on the items it was written
+  after, so the limit appears to be the judge model, not the prompt.
+- The abstention judge said "justified" for all 10 items. 9/10 agreement
+  reflects that 9 of the 10 human labels were also "justified"; kappa is 0.
+- Result: no faithfulness numbers from this judge will be reported. A
+  different judge (or human-only labelling) has to pass calibration first, on
+  items it was not tuned on. With 20 and 10 items, these agreement figures are
+  themselves imprecise.
 
 ## Setup and tests
 
