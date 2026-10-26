@@ -42,8 +42,14 @@ def main():
 
     report = json.loads(args.answers.read_text(encoding="utf-8"))
     rows = {(model, r["query_id"]): r for model, b in report["models"].items() for r in b["rows"]}
-    with args.labels.open(newline="", encoding="utf-8") as f:
-        labels = list(csv.DictReader(f))
+    with args.labels.open(newline="", encoding="utf-8-sig") as f:
+        text = f.read()
+    # Spreadsheet apps may re-save the file tab-separated; accept either.
+    dialect = csv.Sniffer().sniff(text.splitlines()[0], delimiters=",\t")
+    labels = list(csv.DictReader(text.splitlines(), dialect=dialect))
+    missing = [lab["item_id"] for lab in labels if not (lab.get("human_label") or "").strip()]
+    if missing:
+        raise SystemExit(f"{len(missing)}/{len(labels)} items have no human_label: {', '.join(missing)}")
     corpus = load_corpus()
     passages = {d: (d, t, a) for d, t, a in zip(corpus.doc_ids, corpus.titles, corpus.abstracts)}
     judge = Judge(OllamaClient(model=args.judge_llm))
