@@ -21,3 +21,23 @@ the protocol did not anticipate, what was done, and its effect.
   and no choice depends on it. The generator is deterministic in intent
   (temperature 0, seed 0), so the restart should regenerate the same answers;
   bit-identical GPU output is not claimed.
+
+## D2 — 2026-10-25: restarted test run killed when the Claude desktop app exited
+
+- **What happened.** The restarted run (D1) began at about 20:31:50 PDT on
+  2026-10-25. It stopped at 20:56:57 PDT, about 25 minutes in, during
+  setting A. macOS power logs show the `caffeinate` wrapper's assertion ending
+  ("ClientDied") in the same second the Claude desktop app released its own
+  assertions, i.e. the app exited. The run was a child process of a Claude Code
+  session inside that app, so it was terminated with it. There was no sleep, no
+  crash report and no memory-pressure kill; the Mac's next reboot was at
+  11:47 PDT on 2026-10-26.
+- **Partial output.** None. Results are written only when a setting finishes,
+  and setting A had not finished. `results/test/` stayed empty, and the
+  session's temporary console output file no longer exists.
+- **What was done.** The run is now started in its own process session
+  (`os.setsid`) under `nohup` and `caffeinate -i`, with a log file under
+  `logs/`, so it no longer depends on the app staying open. PROTOCOL.md is
+  unchanged (same SHA-256), and the run starts again from the beginning.
+- **Effect.** As in D1: nothing from the stopped run was saved or seen, and no
+  choice depends on it.
