@@ -41,3 +41,24 @@ the protocol did not anticipate, what was done, and its effect.
   unchanged (same SHA-256), and the run starts again from the beginning.
 - **Effect.** As in D1: nothing from the stopped run was saved or seen, and no
   choice depends on it.
+
+## D3 — 2026-10-27: short CPU-only test suites during setting C42+R
+
+- **What happened.** The completed run (all six settings, 15:11:53–21:47:48
+  UTC on 2026-10-27) overlapped once with outside work. Another local project
+  ran two CPU-only unit-test suites (tiny models, no GPU/MPS), about 20 s in
+  total, at about 20:56:10–20:56:40 UTC, during setting C42+R. That project
+  reported it; nothing else was reported during the run, and its later test
+  suite (about 21:49 UTC) started after the run had exited.
+- **Rows affected.** Using the per-row `started_utc` and `total_ms`, two
+  C42+R rows overlap the window: claim 1379 (started 20:56:08.264Z, total
+  26.6 s, 240 completion tokens) and claim 1382 (started 20:56:34.864Z,
+  total 17.4 s, 157 completion tokens). No row of any other setting overlaps.
+- **What was done.** Nothing was rerun or removed; the reported numbers use
+  all 300 rows as the protocol specifies. As a sensitivity check, excluding
+  the two rows changes C42+R total latency p50 from 14,580 ms to 14,515 ms
+  and leaves p95 at 22,180 ms. Claim 1379's longer time is consistent with
+  its longer answer (median completion in C42+R: 97.5 tokens).
+- **Effect.** Answers, citations and retrieval metrics do not depend on
+  machine load (deterministic retrieval; generator at temperature 0, seed 0).
+  The latency effect is at most 65 ms at p50 and none at p95.
