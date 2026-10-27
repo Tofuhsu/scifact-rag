@@ -1,0 +1,802 @@
+[
+ {
+  "setting": "C42",
+  "query_id": "1199",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T001",
+  "sheet_id": "H001"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1207",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T002",
+  "sheet_id": "H002"
+ },
+ {
+  "setting": "C42",
+  "query_id": "421",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T003",
+  "sheet_id": "H003"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "100",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T004",
+  "sheet_id": "H004"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1262",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T005",
+  "sheet_id": "H005"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "354",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T006",
+  "sheet_id": "H006"
+ },
+ {
+  "setting": "A",
+  "query_id": "536",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T007",
+  "sheet_id": "H007"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1020",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T008",
+  "sheet_id": "H008"
+ },
+ {
+  "setting": "C42",
+  "query_id": "516",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T009",
+  "sheet_id": "H009"
+ },
+ {
+  "setting": "C42",
+  "query_id": "967",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T010",
+  "sheet_id": "H010"
+ },
+ {
+  "setting": "A",
+  "query_id": "1262",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T011",
+  "sheet_id": "H011"
+ },
+ {
+  "setting": "A",
+  "query_id": "913",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T012",
+  "sheet_id": "H012"
+ },
+ {
+  "setting": "C42",
+  "query_id": "913",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T013",
+  "sheet_id": "H013"
+ },
+ {
+  "setting": "C42",
+  "query_id": "213",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T014",
+  "sheet_id": "H014"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1226",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T015",
+  "sheet_id": "H015"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1262",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T016",
+  "sheet_id": "H016"
+ },
+ {
+  "setting": "A",
+  "query_id": "1271",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T017",
+  "sheet_id": "H017"
+ },
+ {
+  "setting": "C42",
+  "query_id": "179",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T018",
+  "sheet_id": "H018"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "623",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T019",
+  "sheet_id": "H019"
+ },
+ {
+  "setting": "A",
+  "query_id": "805",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T020",
+  "sheet_id": "H020"
+ },
+ {
+  "setting": "A",
+  "query_id": "1226",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T021",
+  "sheet_id": "H021"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "421",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T022",
+  "sheet_id": "H022"
+ },
+ {
+  "setting": "A",
+  "query_id": "821",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T023",
+  "sheet_id": "H023"
+ },
+ {
+  "setting": "A",
+  "query_id": "967",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T024",
+  "sheet_id": "H024"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "124",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T025",
+  "sheet_id": "H025"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1020",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T026",
+  "sheet_id": "H026"
+ },
+ {
+  "setting": "C42",
+  "query_id": "100",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T027",
+  "sheet_id": "H027"
+ },
+ {
+  "setting": "A",
+  "query_id": "100",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T028",
+  "sheet_id": "H028"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "805",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T029",
+  "sheet_id": "H029"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1271",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T030",
+  "sheet_id": "H030"
+ },
+ {
+  "setting": "A",
+  "query_id": "50",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T031",
+  "sheet_id": "H031"
+ },
+ {
+  "setting": "A",
+  "query_id": "1207",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T032",
+  "sheet_id": "H032"
+ },
+ {
+  "setting": "C42",
+  "query_id": "684",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T033",
+  "sheet_id": "H033"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "261",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T034",
+  "sheet_id": "H034"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "903",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T035",
+  "sheet_id": "H035"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "213",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T036",
+  "sheet_id": "H036"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "781",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T037",
+  "sheet_id": "H037"
+ },
+ {
+  "setting": "C42",
+  "query_id": "124",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T038",
+  "sheet_id": "H038"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1271",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T039",
+  "sheet_id": "H039"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "236",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T040",
+  "sheet_id": "H040"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1226",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T041",
+  "sheet_id": "H041"
+ },
+ {
+  "setting": "C42",
+  "query_id": "236",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T042",
+  "sheet_id": "H042"
+ },
+ {
+  "setting": "C42",
+  "query_id": "821",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T043",
+  "sheet_id": "H043"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "179",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T044",
+  "sheet_id": "H044"
+ },
+ {
+  "setting": "C42",
+  "query_id": "354",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T045",
+  "sheet_id": "H045"
+ },
+ {
+  "setting": "A",
+  "query_id": "623",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T073",
+  "sheet_id": "H046"
+ },
+ {
+  "setting": "C42",
+  "query_id": "261",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T088",
+  "sheet_id": "H047"
+ },
+ {
+  "setting": "C42",
+  "query_id": "903",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T084",
+  "sheet_id": "H048"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1199",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T076",
+  "sheet_id": "H049"
+ },
+ {
+  "setting": "A",
+  "query_id": "261",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T087",
+  "sheet_id": "H050"
+ },
+ {
+  "setting": "A",
+  "query_id": "437",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T057",
+  "sheet_id": "H051"
+ },
+ {
+  "setting": "A",
+  "query_id": "684",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T056",
+  "sheet_id": "H052"
+ },
+ {
+  "setting": "A",
+  "query_id": "70",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T047",
+  "sheet_id": "H053"
+ },
+ {
+  "setting": "A",
+  "query_id": "1020",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T081",
+  "sheet_id": "H054"
+ },
+ {
+  "setting": "C42",
+  "query_id": "437",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T079",
+  "sheet_id": "H055"
+ },
+ {
+  "setting": "A",
+  "query_id": "1199",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T049",
+  "sheet_id": "H056"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "536",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T078",
+  "sheet_id": "H057"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "569",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T069",
+  "sheet_id": "H058"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "70",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T090",
+  "sheet_id": "H059"
+ },
+ {
+  "setting": "A",
+  "query_id": "903",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T052",
+  "sheet_id": "H060"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1207",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T072",
+  "sheet_id": "H061"
+ },
+ {
+  "setting": "C42",
+  "query_id": "805",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T071",
+  "sheet_id": "H062"
+ },
+ {
+  "setting": "C42",
+  "query_id": "623",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T070",
+  "sheet_id": "H063"
+ },
+ {
+  "setting": "A",
+  "query_id": "508",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T075",
+  "sheet_id": "H064"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "903",
+  "kind": "faithfulness",
+  "duplicate_of": "T035",
+  "item_id": "T035",
+  "sheet_id": "H065"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "967",
+  "kind": "faithfulness",
+  "duplicate_of": "T062",
+  "item_id": "T062",
+  "sheet_id": "H066"
+ },
+ {
+  "setting": "A",
+  "query_id": "236",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T067",
+  "sheet_id": "H067"
+ },
+ {
+  "setting": "C42",
+  "query_id": "508",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T059",
+  "sheet_id": "H068"
+ },
+ {
+  "setting": "C42",
+  "query_id": "536",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T086",
+  "sheet_id": "H069"
+ },
+ {
+  "setting": "A",
+  "query_id": "354",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T082",
+  "sheet_id": "H070"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "967",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T062",
+  "sheet_id": "H071"
+ },
+ {
+  "setting": "C42",
+  "query_id": "903",
+  "kind": "faithfulness",
+  "duplicate_of": "T084",
+  "item_id": "T084",
+  "sheet_id": "H072"
+ },
+ {
+  "setting": "C42",
+  "query_id": "569",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T065",
+  "sheet_id": "H073"
+ },
+ {
+  "setting": "A",
+  "query_id": "213",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T050",
+  "sheet_id": "H074"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "821",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T064",
+  "sheet_id": "H075"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "684",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T089",
+  "sheet_id": "H076"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "1196",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T060",
+  "sheet_id": "H077"
+ },
+ {
+  "setting": "A",
+  "query_id": "1196",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T054",
+  "sheet_id": "H078"
+ },
+ {
+  "setting": "A",
+  "query_id": "516",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T077",
+  "sheet_id": "H079"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "508",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T066",
+  "sheet_id": "H080"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "821",
+  "kind": "abstention",
+  "duplicate_of": "T064",
+  "item_id": "T064",
+  "sheet_id": "H081"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "516",
+  "kind": "faithfulness",
+  "duplicate_of": "T053",
+  "item_id": "T053",
+  "sheet_id": "H082"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "50",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T068",
+  "sheet_id": "H083"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "913",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T063",
+  "sheet_id": "H084"
+ },
+ {
+  "setting": "C42",
+  "query_id": "516",
+  "kind": "faithfulness",
+  "duplicate_of": "T009",
+  "item_id": "T009",
+  "sheet_id": "H085"
+ },
+ {
+  "setting": "A",
+  "query_id": "569",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T048",
+  "sheet_id": "H086"
+ },
+ {
+  "setting": "A",
+  "query_id": "421",
+  "kind": "abstention",
+  "duplicate_of": "T055",
+  "item_id": "T055",
+  "sheet_id": "H087"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "516",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T053",
+  "sheet_id": "H088"
+ },
+ {
+  "setting": "C42",
+  "query_id": "50",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T061",
+  "sheet_id": "H089"
+ },
+ {
+  "setting": "A",
+  "query_id": "781",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T058",
+  "sheet_id": "H090"
+ },
+ {
+  "setting": "A",
+  "query_id": "124",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T085",
+  "sheet_id": "H091"
+ },
+ {
+  "setting": "A",
+  "query_id": "569",
+  "kind": "faithfulness",
+  "duplicate_of": "T048",
+  "item_id": "T048",
+  "sheet_id": "H092"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "437",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T080",
+  "sheet_id": "H093"
+ },
+ {
+  "setting": "C42",
+  "query_id": "781",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T083",
+  "sheet_id": "H094"
+ },
+ {
+  "setting": "C42+R",
+  "query_id": "124",
+  "kind": "faithfulness",
+  "duplicate_of": "T025",
+  "item_id": "T025",
+  "sheet_id": "H095"
+ },
+ {
+  "setting": "C42",
+  "query_id": "913",
+  "kind": "faithfulness",
+  "duplicate_of": "T013",
+  "item_id": "T013",
+  "sheet_id": "H096"
+ },
+ {
+  "setting": "A",
+  "query_id": "179",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T051",
+  "sheet_id": "H097"
+ },
+ {
+  "setting": "C42",
+  "query_id": "1196",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T046",
+  "sheet_id": "H098"
+ },
+ {
+  "setting": "C42",
+  "query_id": "70",
+  "kind": "faithfulness",
+  "duplicate_of": null,
+  "item_id": "T074",
+  "sheet_id": "H099"
+ },
+ {
+  "setting": "A",
+  "query_id": "421",
+  "kind": "abstention",
+  "duplicate_of": null,
+  "item_id": "T055",
+  "sheet_id": "H100"
+ }
+]
