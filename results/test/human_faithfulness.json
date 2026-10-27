@@ -1,0 +1,64 @@
+{
+  "per_setting": {
+    "A": {
+      "faithful": {
+        "count": 19,
+        "of": 24,
+        "wilson95": [
+          0.5952954657887158,
+          0.9075517470563429
+        ]
+      },
+      "justified_abstentions": {
+        "count": 6,
+        "of": 6
+      }
+    },
+    "C42": {
+      "faithful": {
+        "count": 21,
+        "of": 25,
+        "wilson95": [
+          0.6534637822439173,
+          0.9359654858790167
+        ]
+      },
+      "justified_abstentions": {
+        "count": 5,
+        "of": 5
+      }
+    },
+    "C42+R": {
+      "faithful": {
+        "count": 19,
+        "of": 24,
+        "wilson95": [
+          0.5952954657887158,
+          0.9075517470563429
+        ]
+      },
+      "justified_abstentions": {
+        "count": 6,
+        "of": 6
+      }
+    }
+  },
+  "paired": {
+    "C42 vs A": {
+      "claims": 30,
+      "only_C42_good": 3,
+      "only_A_good": 2,
+      "note": "good = faithful answer or justified abstention; descriptive only"
+    },
+    "C42+R vs C42": {
+      "claims": 30,
+      "only_C42+R_good": 1,
+      "only_C42_good": 2,
+      "note": "good = faithful answer or justified abstention; descriptive only"
+    }
+  },
+  "self_agreement": {
+    "same": 10,
+    "of": 10
+  }
+}

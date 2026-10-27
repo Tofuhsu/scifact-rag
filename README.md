@@ -1,9 +1,8 @@
 # SciFact RAG: retrieval service and end-to-end evaluation
 
-> **Status: draft, week 3 of 4 in progress.** Retrieval service, retrieval reproduction,
-> and grounded generation with citations (`/ask`, local Ollama) are done.
-> Evaluation results for citations, faithfulness, latency and cost do not
-> exist yet; the tables below mark them as pending.
+> **Status: week 3 of 4 done.** The frozen test run (6 settings × 300 claims) and
+> the blinded human faithfulness sample are complete; results are in
+> [Test results](#test-results-frozen-protocol). Week 4 (Docker, CI) is not done.
 
 This project turns an earlier controlled fine-tuning experiment
 (MiniLM, hard vs random negatives on BEIR SciFact, 3 seeds; personal fork of
@@ -26,9 +25,12 @@ through to the citations an LLM actually produces?
 
 | Setting | nDCG@10 / Recall@10 | Citation correctness | Faithfulness | p50 / p95 latency | Cost per query |
 | --- | --- | --- | --- | --- | --- |
-| Original MiniLM | **done (below)** | pending | pending | pending | pending |
-| Fine-tuned C (3 seeds) | **done (below)** | pending | pending | pending | pending |
-| Fine-tuned C + reranker | pending | pending | pending | pending | pending |
+| Original MiniLM | done | done | done (human, sample) | done | $0 API |
+| Fine-tuned C (3 seeds) | done | done | done (seed 42, human, sample) | done | $0 API |
+| Original and C42 + reranker | done | done | done (C42+R, human, sample) | done | $0 API |
+
+All are reported in [Test results](#test-results-frozen-protocol). Faithfulness
+ended up human-labelled, not LLM-judged (the judge failed calibration, below).
 
 Definitions (fixed before any generation results are seen):
 
@@ -247,6 +249,96 @@ for self-consistency); automatic metrics and latency cover all 300 claims for
 six settings. The full plan is in [`PROTOCOL.md`](PROTOCOL.md), which is
 frozen before the test set is used.
 
+## Test results (frozen protocol)
+
+Run once under [`PROTOCOL.md`](PROTOCOL.md) (SHA-256 `a960127e…`, frozen
+before any test generation), 2026-10-27 15:11–21:48 UTC, from commit
+`c05190e`. Output: `results/test/*.json`, one
+file per setting with every answer. Deviations (two stopped runs with no saved
+output, and one short CPU-only overlap) are in [`DEVIATIONS.md`](DEVIATIONS.md).
+
+Conditions: BEIR SciFact test, 300 claims; generator `qwen3:14b` (Ollama,
+Q4_K_M), temperature 0, seed 0, thinking off, prompt `v2`, k = 5 abstracts per
+answer; reranker `ms-marco-MiniLM-L-6-v2` over the bi-encoder top 50;
+Apple M4 Pro 48 GB; sequential single requests, warm model (one discarded
+warm-up per setting).
+
+### Retrieval and answers (all 300 claims)
+
+| Setting | nDCG@10 | Recall@10 | Claims with a relevant doc in top 5 | Abstained | Abstained with a relevant doc in top 5 | Cited docs in qrels | Answers with invalid citations | Uncited answers |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A: original | 0.6451 | 0.7833 | 226/300 | 54/300 | 20/54 | 207/410 (50.5%) | 0/246 | 3/246 |
+| C, seed 13 | 0.6787 | 0.8199 | 228/300 | 49/300 | 20/49 | 210/434 (48.4%) | 0/251 | 2/251 |
+| C, seed 42 | 0.6801 | 0.8149 | 229/300 | 50/300 | 21/50 | 210/423 (49.6%) | 0/250 | 2/250 |
+| C, seed 2026 | 0.6766 | 0.8116 | 228/300 | 49/300 | 20/49 | 209/410 (51.0%) | 0/251 | 3/251 |
+| A + rerank | 0.6936 | 0.8222 | 228/300 | 46/300 | 19/46 | 212/425 (49.9%) | 0/254 | 3/254 |
+| C42 + rerank | 0.6946 | 0.8222 | 227/300 | 46/300 | 18/46 | 210/425 (49.4%) | 0/254 | 2/254 |
+
+"Cited docs in qrels" is a lower bound on citation correctness: SciFact labels
+are incomplete, so a cited abstract outside the qrels can still support the
+answer (see the human sample below).
+
+### Latency and cost (all 300 claims, ms, nearest-rank p50 / p95)
+
+| Setting | Embed | Search | Rerank | Generate | Total | Mean prompt / completion tokens |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | 33 / 44 | 0 / 0 | — | 11,172 / 17,661 | 11,208 / 17,694 | 1,960 / 87 |
+| C13 | 31 / 40 | 0 / 0 | — | 12,389 / 19,868 | 12,434 / 19,901 | 1,963 / 90 |
+| C42 | 29 / 39 | 0 / 0 | — | 12,334 / 19,919 | 12,376 / 19,949 | 1,950 / 88 |
+| C2026 | 29 / 39 | 0 / 0 | — | 12,370 / 19,581 | 12,401 / 19,613 | 1,944 / 89 |
+| A + rerank | 31 / 41 | 0 / 0 | 218 / 257 | 14,085 / 21,021 | 14,339 / 21,277 | 2,121 / 92 |
+| C42 + rerank | 42 / 75 | 0 / 0 | 240 / 308 | 14,300 / 21,883 | 14,580 / 22,180 | 2,118 / 93 |
+
+Search is FAISS exact search over 5,183 vectors (under 0.5 ms, shown as 0).
+Cost: $0 marginal API cost for every setting (all models local); hardware and
+electricity are not counted. Leaving out the two C42 + rerank rows that
+overlapped outside CPU work (D3) changes its total p50 to 14,515 ms; p95 is
+unchanged.
+
+### Human faithfulness (blinded sample)
+
+30 test claims (`random.Random(2026)`), the same claims for A, C42 and
+C42 + rerank, shuffled with the setting hidden; 10 items repeated for a
+consistency check (100 items). One annotator, the author. Labels were committed
+(`8608814`) before the key was opened and scored. Output:
+`results/test/human_faithfulness.json`.
+
+| Setting | Faithful answers (Wilson 95%) | Justified abstentions |
+| --- | --- | --- |
+| A: original | 19/24 = 79% (60–91%) | 6/6 |
+| C, seed 42 | 21/25 = 84% (65–94%) | 5/5 |
+| C42 + rerank | 19/24 = 79% (60–91%) | 6/6 |
+
+- Paired, "good outcome" = faithful answer or justified abstention, 30 claims:
+  C42 vs A, 3 claims good only with C42 and 2 only with A; C42 + rerank vs C42,
+  1 only with rerank and 2 only without. Descriptive only; no test of
+  significance is meaningful at this size, and the intervals overlap widely.
+- Self-agreement on the 10 repeated items: 10/10.
+
+### What this shows
+
+- **The retrieval gain does not carry through to answers in this setup.** The
+  fine-tuned models raise nDCG@10 by about +0.03 and the reranker by about
+  +0.05 over the original, but the number of claims with a labelled relevant
+  abstract in the top 5 moves only from 226 to 227–229 of 300, cited-in-qrels
+  stays at 48–51% for every setting, and abstentions fall only from 54 to 46.
+  With k = 5 the LLM sees most of the useful abstracts either way; better
+  ordering inside or just past the top 5 matters for nDCG@10 but little for
+  the answer.
+- Faithfulness on the sample is 79–84% for all three settings, with no
+  difference that 24–25 answers per setting could detect. Every abstention in
+  the sample (17/17) was judged justified, so the abstentions with a "relevant"
+  doc in the top 5 are, in the sample, cases where the labelled abstract does
+  not state anything about the claim.
+- **Cost of the reranker:** about +0.25 s of reranking plus +2 to +3 s of
+  generation at p50, because reranked top-5 abstracts are longer on average
+  (about +160 prompt tokens). Generation dominates latency in every setting
+  (over 99% of p50).
+- The C models' generation p50 is about 1.2 s higher than A's at nearly the
+  same token counts. Settings ran one after another over 6.5 hours on one
+  machine, so this may be drift (for example thermal) rather than an effect of
+  the retriever; it is not interpreted.
+
 ## Setup and tests
 
 ```bash
@@ -254,7 +346,7 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest -q
 ```
 
-76 unit tests (API validation and responses for `/search` and `/ask`, the
+87 unit tests (API validation and responses for `/search` and `/ask`, the
 judge and its agreement statistics, reranking,
 citation parsing, the NOT_FOUND abstain path, LLM failure handling, FAISS
 ranking and tie-breaking, index save/load, metric known-answer fixtures, data
@@ -268,10 +360,18 @@ variables: `SCIFACT_HF_CACHE` (Hugging Face cache dir), `SCIFACT_ARTIFACTS`
 
 - Week 1 (done): repo, README draft, FAISS indexes, retrieval reproduction, `/search` + tests.
 - Week 2 (done): local LLM through Ollama; prompt that answers only from retrieved abstracts and cites doc IDs; `/ask` endpoint; tests for citation parsing and "not found" answers; development check on validation claims (below).
-- Week 3: evaluation harness for the full matrix; cross-encoder reranker ablation; latency and cost.
+- Week 3 (done): evaluation harness, reranker depth on validation, judge calibration (failed), frozen protocol, test run, blinded human faithfulness sample.
 - Week 4: Docker image with authentication or rate limiting; final README with results, limits and non-claims; GitHub Actions CI.
 
 ## Limits (so far)
+
+- Faithfulness is from one annotator (the author, who built the system), on
+  30 claims × 3 settings. Blinding hid the setting, not the fact that the
+  author wrote the prompt. The intervals are wide.
+- All settings use one generator (`qwen3:14b`), one prompt and k = 5. A
+  smaller k, or a weaker generator, could make retrieval quality matter more.
+- Latency is sequential single requests on one laptop with settings run one
+  after another; it says nothing about throughput under concurrent load.
 
 - SciFact is a small benchmark (5,183 abstracts, 300 test claims). Results do
   not represent real-world use.
