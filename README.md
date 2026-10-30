@@ -374,7 +374,7 @@ curl -s -X POST localhost:8000/search -H 'content-type: application/json' \
   container (CPU query embeddings) returned top-5 doc IDs identical to the
   frozen test run (MPS query embeddings) on 300/300 test claims for both the
   original and C-seed-42 models. Requests without a key got 401, searches past the 60th
-  search within a minute got 429 with `Retry-After`, `/ask` returned a cited answer through host
+  within a minute got 429 with `Retry-After`, `/ask` returned a cited answer through host
   Ollama, and the image exits with an error when no key is configured.
 
 ## Continuous integration
