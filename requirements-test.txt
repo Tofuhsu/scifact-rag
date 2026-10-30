@@ -1,0 +1,8 @@
+# Unit tests only (CI): no torch / sentence-transformers. Tests use fake encoders and LLMs.
+numpy==2.4.6
+faiss-cpu==1.15.1
+fastapi==0.146.0
+pydantic==2.14.1
+httpx==0.28.1
+pytest==9.1.1
+anthropic==2.3.0

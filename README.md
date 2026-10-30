@@ -1,8 +1,10 @@
 # SciFact RAG: retrieval service and end-to-end evaluation
 
-> **Status: week 3 of 4 done.** The frozen test run (6 settings × 300 claims) and
-> the blinded human faithfulness sample are complete; results are in
-> [Test results](#test-results-frozen-protocol). Week 4 (Docker, CI) is not done.
+> **Status: complete (4 weeks).** The frozen test run (6 settings × 300 claims) and
+> the blinded human faithfulness sample are in
+> [Test results](#test-results-frozen-protocol); the API runs in Docker with
+> API-key auth and rate limiting ([Docker](#docker)), and CI runs the unit tests
+> and builds the image on every push.
 
 This project turns an earlier controlled fine-tuning experiment
 (MiniLM, hard vs random negatives on BEIR SciFact, 3 seeds; personal fork of
@@ -95,10 +97,20 @@ not the fork), faiss-cpu 1.15.1.
 ## Search API
 
 ```bash
-.venv/bin/uvicorn scifact_rag.api:build_default_app --factory --port 8000
-curl -s -X POST localhost:8000/search -H 'content-type: application/json' \
+SCIFACT_API_KEYS=dev-key .venv/bin/uvicorn scifact_rag.api:build_default_app --factory --port 8000
+curl -s -X POST localhost:8000/search -H 'content-type: application/json' -H 'X-API-Key: dev-key' \
   -d '{"query": "Statins reduce cardiovascular events.", "k": 5, "model": "C-seed42"}'
 ```
+
+**Auth and rate limits.** `/search` and `/ask` need an `X-API-Key` header
+(401 otherwise); `/health` is open for health checks. Keys come from
+`SCIFACT_API_KEYS` (comma-separated) or a file named by `SCIFACT_API_KEYS_FILE`;
+the server refuses to start with no keys unless `SCIFACT_AUTH=off` (local
+development only). Each key gets a token bucket per endpoint:
+`SCIFACT_SEARCH_RATE_LIMIT` (default `60/minute`) and `SCIFACT_ASK_RATE_LIMIT`
+(default `10/minute`, since one answer takes 11–15 s of local GPU time). Over
+the limit the server returns 429 with `Retry-After`. Keys are compared as
+SHA-256 digests in constant time and are never logged.
 
 `POST /search` takes `query` (1–2000 chars), `k` (1–100, default 10) and an
 optional `model` (`original`, `C-seed13`, `C-seed42`, `C-seed2026`; the
@@ -111,7 +123,8 @@ reproduction script into `indexes/` (not committed).
 
 ```bash
 curl -s -X POST localhost:8000/ask -H 'content-type: application/json' \
-  -d '{"query": "Statins reduce cardiovascular events.", "k": 5, "model": "C-seed42"}'
+  -d '{"query": "Statins reduce cardiovascular events.", "k": 5, "model": "C-seed42"}' \
+  -H 'X-API-Key: dev-key'
 ```
 
 Retrieves the top `k` abstracts (1–20, default 5), sends only those to a local
@@ -339,6 +352,39 @@ consistency check (100 items). One annotator, the author. Labels were committed
   machine, so this may be drift (for example thermal) rather than an effect of
   the retriever; it is not interpreted.
 
+## Docker
+
+```bash
+mkdir -p secrets && python3 -c "import secrets; print(secrets.token_urlsafe(32))" > secrets/api_keys
+docker compose up --build        # http://127.0.0.1:8000
+curl -s -X POST localhost:8000/search -H 'content-type: application/json' \
+  -H "X-API-Key: $(head -1 secrets/api_keys)" -d '{"query": "Statins reduce cardiovascular events."}'
+```
+
+- CPU-only image (`python:3.11.6-slim`, CPU torch wheel, about 2.2 GB), non-root
+  user, read-only root filesystem, one uvicorn worker, health check on `/health`.
+- Nothing large is baked in. `compose.yaml` mounts `indexes/` (built by
+  `scripts/reproduce_retrieval.py`), the Hugging Face cache and the fine-tuned
+  model folder read-only (`SCIFACT_HF_CACHE_HOST`, `SCIFACT_ARTIFACTS_HOST`
+  override the host paths). Keys are a Docker secret (`secrets/`, gitignored).
+  The port is bound to 127.0.0.1 only.
+- `/ask` calls Ollama on the host (`host.docker.internal:11434`); the container
+  has no GPU access, so generation stays on the host's Ollama.
+- Check (2026-10-29, Apple M4 Pro, Docker Desktop 29.2.0 arm64): querying the
+  container (CPU query embeddings) returned top-5 doc IDs identical to the
+  frozen test run (MPS query embeddings) on 300/300 test claims for both the
+  original and C-seed-42 models. Requests without a key got 401, searches past the 60th
+  search within a minute got 429 with `Retry-After`, `/ask` returned a cited answer through host
+  Ollama, and the image exits with an error when no key is configured.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and every pull request:
+the unit tests on Python 3.11 with `requirements-test.txt` (no torch; the tests
+use fake encoders and LLMs), and a Docker build that also checks the container
+refuses to start without API keys. CI does not run models, Ollama or the
+evaluation; those need local data and a GPU.
+
 ## Setup and tests
 
 ```bash
@@ -346,7 +392,7 @@ python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m pytest -q
 ```
 
-87 unit tests (API validation and responses for `/search` and `/ask`, the
+112 unit tests (API key auth and rate limiting, API validation and responses for `/search` and `/ask`, the
 judge and its agreement statistics, reranking,
 citation parsing, the NOT_FOUND abstain path, LLM failure handling, FAISS
 ranking and tie-breaking, index save/load, metric known-answer fixtures, data
@@ -361,9 +407,14 @@ variables: `SCIFACT_HF_CACHE` (Hugging Face cache dir), `SCIFACT_ARTIFACTS`
 - Week 1 (done): repo, README draft, FAISS indexes, retrieval reproduction, `/search` + tests.
 - Week 2 (done): local LLM through Ollama; prompt that answers only from retrieved abstracts and cites doc IDs; `/ask` endpoint; tests for citation parsing and "not found" answers; development check on validation claims (below).
 - Week 3 (done): evaluation harness, reranker depth on validation, judge calibration (failed), frozen protocol, test run, blinded human faithfulness sample.
-- Week 4: Docker image with authentication or rate limiting; final README with results, limits and non-claims; GitHub Actions CI.
+- Week 4 (done): Docker image with API-key auth and per-key rate limiting; GitHub Actions CI; final README.
 
-## Limits (so far)
+## Limits
+
+- Rate limits are kept in memory per process: they reset on restart and do
+  not add up across replicas. A shared store (e.g. Redis) would be needed to
+  run more than one worker. There is no TLS; put the API behind a reverse
+  proxy that terminates TLS before exposing it beyond localhost.
 
 - Faithfulness is from one annotator (the author, who built the system), on
   30 claims × 3 settings. Blinding hid the setting, not the fact that the

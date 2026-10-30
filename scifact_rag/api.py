@@ -2,7 +2,10 @@
 
 Run against the indexes built by scripts/reproduce_retrieval.py:
 
-    .venv/bin/uvicorn scifact_rag.api:build_default_app --factory --port 8000
+    SCIFACT_API_KEYS=<key> .venv/bin/uvicorn scifact_rag.api:build_default_app --factory --port 8000
+
+/search and /ask require an `X-API-Key` header and are rate limited per key;
+/health is open (for container health checks).
 """
 from __future__ import annotations
 
@@ -10,8 +13,10 @@ import os
 import time
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
+
+from .security import KeyChecker, RateLimiter, load_api_keys, parse_rate_limit, retry_after_header
 
 MAX_K = 100
 MAX_ASK_K = 20
@@ -80,12 +85,36 @@ class AskResponse(BaseModel):
     prompt_version: str
 
 
-def create_app(retrievers, default_model, llm=None, abstracts=None):
+def create_app(retrievers, default_model, llm=None, abstracts=None, api_keys=None, search_limit=None,
+               ask_limit=None, clock=time.monotonic):
     """retrievers: {model_label: Retriever}. llm (with .chat(messages)) and abstracts
-    ({doc_id: abstract}) enable POST /ask; without them /ask returns 503."""
+    ({doc_id: abstract}) enable POST /ask; without them /ask returns 503.
+
+    api_keys: list of accepted X-API-Key values (None = no auth). search_limit / ask_limit:
+    (requests, per_seconds) per client, where a client is its API key, or its IP without auth."""
     if default_model not in retrievers:
         raise ValueError("default_model must be one of the retrievers")
-    app = FastAPI(title="SciFact RAG", version="0.2.0")
+    app = FastAPI(title="SciFact RAG", version="0.3.0")
+    checker = KeyChecker(api_keys) if api_keys is not None else None
+    limiters = {name: RateLimiter(*limit, clock=clock) if limit else None
+                for name, limit in (("search", search_limit), ("ask", ask_limit))}
+
+    def guard(name):
+        def dependency(request: Request, x_api_key: str | None = Header(default=None)):
+            if checker is not None:
+                client = checker.client_id(x_api_key)
+                if client is None:
+                    raise HTTPException(status_code=401, detail="Missing or invalid X-API-Key",
+                                        headers={"WWW-Authenticate": "ApiKey"})
+            else:
+                client = f"ip:{request.client.host if request.client else 'unknown'}"
+            limiter = limiters[name]
+            if limiter is not None:
+                wait = limiter.acquire(client)
+                if wait > 0:
+                    raise HTTPException(status_code=429, detail="Rate limit exceeded",
+                                        headers={"Retry-After": retry_after_header(wait)})
+        return Depends(dependency)
 
     def pick(label, query):
         label = label or default_model
@@ -100,7 +129,7 @@ def create_app(retrievers, default_model, llm=None, abstracts=None):
         return {"status": "ok", "models": sorted(retrievers), "default_model": default_model}
 
     @app.post("/search", response_model=SearchResponse)
-    def search(request: SearchRequest):
+    def search(request: SearchRequest, _=guard("search")):
         label, retriever = pick(request.model, request.query)
         k = min(request.k, len(retriever.index))
         start = time.perf_counter()
@@ -110,7 +139,7 @@ def create_app(retrievers, default_model, llm=None, abstracts=None):
                               timings=Timings(total_ms=total_ms, **timings))
 
     @app.post("/ask", response_model=AskResponse)
-    def ask(request: AskRequest):
+    def ask(request: AskRequest, _=guard("ask")):
         if llm is None or abstracts is None:
             raise HTTPException(status_code=503, detail="Generation is not configured on this server")
         from .generation import PROMPT_VERSION, Answerer
@@ -139,7 +168,20 @@ def create_app(retrievers, default_model, llm=None, abstracts=None):
 
 
 def build_default_app():
-    """Load prebuilt indexes. SCIFACT_MODELS (comma list) picks models; the first is the default."""
+    """Load prebuilt indexes. SCIFACT_MODELS (comma list) picks models; the first is the default.
+
+    Refuses to start without API keys (SCIFACT_API_KEYS or SCIFACT_API_KEYS_FILE) unless
+    SCIFACT_AUTH=off. Rate limits: SCIFACT_SEARCH_RATE_LIMIT (default 60/minute) and
+    SCIFACT_ASK_RATE_LIMIT (default 10/minute) per key; 'off' disables.
+    """
+    api_keys = load_api_keys()
+    if os.environ.get("SCIFACT_AUTH", "on").lower() == "off":
+        api_keys = None
+    elif not api_keys:
+        raise RuntimeError("No API keys configured: set SCIFACT_API_KEYS or SCIFACT_API_KEYS_FILE "
+                           "(or SCIFACT_AUTH=off for local development only)")
+    search_limit = parse_rate_limit(os.environ.get("SCIFACT_SEARCH_RATE_LIMIT", "60/minute"))
+    ask_limit = parse_rate_limit(os.environ.get("SCIFACT_ASK_RATE_LIMIT", "10/minute"))
     from .data import load_corpus
     from .generation import OllamaClient
     from .index import FaissIndex
@@ -159,4 +201,5 @@ def build_default_app():
     llm = OllamaClient(model=os.environ.get("SCIFACT_LLM", "qwen3:14b"),
                        base_url=os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434"))
     abstracts = dict(zip(corpus.doc_ids, corpus.abstracts))
-    return create_app(retrievers, labels[0], llm=llm, abstracts=abstracts)
+    return create_app(retrievers, labels[0], llm=llm, abstracts=abstracts, api_keys=api_keys,
+                      search_limit=search_limit, ask_limit=ask_limit)

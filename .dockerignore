@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+.env
+.pytest_cache
+**/__pycache__
+indexes
+logs
+results
+human_eval
+calibration
+secrets
+tests
+scripts
+*.md

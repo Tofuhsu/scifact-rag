@@ -1,0 +1,32 @@
+# docker compose up --build
+# Needs: secrets/api_keys (one key per line, gitignored), indexes/ built by
+# scripts/reproduce_retrieval.py, and Ollama running on the host for /ask.
+services:
+  api:
+    build: .
+    image: scifact-rag:local
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      SCIFACT_API_KEYS_FILE: /run/secrets/api_keys
+      SCIFACT_MODELS: ${SCIFACT_MODELS:-original,C-seed42}
+      SCIFACT_SEARCH_RATE_LIMIT: ${SCIFACT_SEARCH_RATE_LIMIT:-60/minute}
+      SCIFACT_ASK_RATE_LIMIT: ${SCIFACT_ASK_RATE_LIMIT:-10/minute}
+      SCIFACT_LLM: ${SCIFACT_LLM:-qwen3:14b}
+    secrets:
+      - api_keys
+    volumes:
+      - ./indexes:/indexes:ro
+      - ${SCIFACT_HF_CACHE_HOST:-${HOME}/scientific-retrieval/scientific-retrieval-artifacts/hf-cache}:/models/hf-cache:ro
+      - ${SCIFACT_ARTIFACTS_HOST:-${HOME}/scientific-retrieval/scientific-retrieval-artifacts}:/models/artifacts:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+secrets:
+  api_keys:
+    file: ./secrets/api_keys

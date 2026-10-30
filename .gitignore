@@ -6,3 +6,4 @@ indexes/
 .DS_Store
 .env
 logs/
+secrets/
