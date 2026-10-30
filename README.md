@@ -445,6 +445,18 @@ Production use, real users, results better than the SciFact paper, or a
 "fact-checking system". SciFact's original task is claim verification; this
 project does retrieval plus cited generation only.
 
+## Data and licence
+
+Code in this repository is under the [MIT License](LICENSE). The data is not:
+claims and abstracts come from SciFact (Wadden et al., 2020, "Fact or Fiction:
+Verifying Scientific Claims"), loaded from the BEIR copy on Hugging Face
+(`BeIR/scifact`, whose dataset card lists CC BY-SA 4.0); the original SciFact
+release by AllenAI is under CC BY-NC 2.0. Abstract text quoted in
+`results/test/`, `results/dev/`, `calibration/` and `human_eval/` stays under
+the dataset's licence. Model weights are not included: the base model is
+`sentence-transformers/all-MiniLM-L6-v2` (Apache 2.0), and the fine-tuned
+models are not published.
+
 ## AI assistance
 
 Code and this README were written with an AI coding assistant (Claude Code)
